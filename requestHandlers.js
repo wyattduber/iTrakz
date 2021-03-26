@@ -24,7 +24,7 @@ var handlers = {
 
     dbTest: function(request, response) {
         response.writeHead(200);
-        response.end(db.createHistory('2020-03-25', 'Test ingest', 'peeweeMan'));
+        response.end(db.getTicketBit(5, "title"));
     }
 }
 

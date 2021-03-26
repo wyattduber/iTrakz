@@ -1,5 +1,4 @@
-let db; // Initialize Database Variable
-const sqlite3 = require('sqlite3'); // import sqlite
+const db = require('better-sqlite3')('database.db'); // import sqlite
 
 /**
  * Database Handler Class designed to handle all tickets and history objects needed for the website
@@ -13,27 +12,28 @@ class database {
      * Creates the tickets and the history table if they don't already exist
      */
     constructor() {
-            db = new sqlite3.Database('database.db');
-            console.log("Opened database");
-            db.serialize(() => {
-                db.run('CREATE TABLE IF NOT EXISTS tickets(' +
-                    'id INT NOT NULL, ' +
-                    'title VARCHAR(200) NOT NULL, ' +
-                    'author VARCHAR(50) NOT NULL, ' +
-                    'time DATETIME NOT NULL, ' +
-                    'content LONGTEXT NOT NULL, ' +
-                    'label VARCHAR(20) NOT NULL, ' +
-                    'projectTitle VARCHAR(50), ' +
-                    'responder VARCHAR(50), ' +
-                    'category VARCHAR(20)' +
-                    ');');
-                db.run('CREATE TABLE IF NOT EXISTS history(' +
-                    'id INT NOT NULL, ' +
-                    'date DATETIME NOT NULL, ' +
-                    'description VARCHAR(200) NOT NULL, ' +
-                    'user VARCHAR(50) NOT NULL' +
-                    ');');
-            })
+        let stmt = db.prepare('CREATE TABLE IF NOT EXISTS tickets(' +
+            'id INT NOT NULL, ' +
+            'title VARCHAR(200) NOT NULL, ' +
+            'author VARCHAR(50) NOT NULL, ' +
+            'time DATETIME NOT NULL, ' +
+            'content LONGTEXT NOT NULL, ' +
+            'label VARCHAR(20) NOT NULL, ' +
+            'projectTitle VARCHAR(50), ' +
+            'responder VARCHAR(50), ' +
+            'category VARCHAR(20)' +
+            ');');
+        stmt.run();
+
+        stmt = db.prepare('CREATE TABLE IF NOT EXISTS history(' +
+            'id INT NOT NULL, ' +
+            'date DATETIME NOT NULL, ' +
+            'description VARCHAR(200) NOT NULL, ' +
+            'user VARCHAR(50) NOT NULL' +
+            ');');
+        stmt.run();
+
+        console.log("Opened database");
     }
 
     /**
@@ -42,57 +42,12 @@ class database {
      * @param bit
      * @returns {Generator<*, void, *>}
      */
-    *getTicketBit(id, bit) {
-        try {
-            db.transaction(function (tx) {
-                switch (bit) {
-                    case "title":
-                        tx.executeSql('SELECT title FROM tickets WHERE id=?', [id], function (tx, resultSet) {
-                            return resultSet.rows.item(0).text;
-                        });
-                        break;
-                    case "author":
-                        tx.executeSql('SELECT author FROM tickets WHERE id=?', [id], function (tx, resultSet) {
-                            return resultSet.rows.item(0).text;
-                        });
-                        break;
-                    case "time":
-                        tx.executeSql('SELECT time FROM tickets WHERE id=?', [id], function (tx, resultSet) {
-                            return resultSet.rows.item(0).text;
-                        });
-                        break;
-                    case "content":
-                        tx.executeSql('SELECT content FROM tickets WHERE id=?', [id], function (tx, resultSet) {
-                            return resultSet.rows.item(0).text;
-                        });
-                        break;
-                    case "label":
-                        tx.executeSql('SELECT label FROM tickets WHERE id=?', [id], function (tx, resultSet) {
-                            return resultSet.rows.item(0).text;
-                        });
-                        break;
-                    case "projectName":
-                        tx.executeSql('SELECT projectName FROM tickets WHERE id=?', [id], function (tx, resultSet) {
-                            return resultSet.rows.item(0).text;
-                        });
-                        break;
-                    case "responder":
-                        tx.executeSql('SELECT responder FROM tickets WHERE id=?', [id], function (tx, resultSet) {
-                            return resultSet.rows.item(0).text;
-                        });
-                        break;
-                    case "category":
-                        tx.executeSql('SELECT name FROM tickets WHERE id=?', [id], function (tx, resultSet) {
-                            return resultSet.rows.item(0).text;
-                        });
-                        break;
-                    default:
-                        throw new SQLException();
-                }
-            });
-        } catch (e) {
-            console.error(e);
-        }
+    getTicketBit(id, bit) {
+        // Prepares statement, selects all values
+        let stmt = db.prepare("SELECT * FROM tickets WHERE id=?");
+
+        // Returns statement with inserted `id`, selecting `bit` specifically
+        return stmt.get(id)[bit];
     }
 
     /**
@@ -101,7 +56,7 @@ class database {
      * @param bit
      * @returns {Generator<*, void, *>}
      */
-    *getHistoryBit(id, bit) {
+    getHistoryBit(id, bit) {
         try {
             db.transaction(function (tx) {
                 switch (bit) {
@@ -135,7 +90,7 @@ class database {
      * @param id
      * @returns {Generator<*, void, *>}
      */
-    *getTicketById(id) {
+    getTicketById(id) {
         let i, arr;
         try {
             db.transaction(function (tx) {
@@ -158,7 +113,7 @@ class database {
      * @param author
      * @returns {Generator<*, void, *>}
      */
-    *getTicketsByAuthor(author) {
+    getTicketsByAuthor(author) {
         try {
             db.transaction(function (tx) {
                 tx.executeSql('SELECT id FROM tickets WHERE author=?', [author], function (tx, results) {
@@ -179,7 +134,7 @@ class database {
      * @param label
      * @returns {Generator<*, void, *>}
      */
-    *getTicketsByLabel(label) {
+    getTicketsByLabel(label) {
         try {
             db.transaction(function (tx) {
                 tx.executeSql('SELECT id FROM tickets WHERE label=?', [label], function (tx, results) {
@@ -203,7 +158,7 @@ class database {
      * @param user
      * @returns {Generator<*, void, *>}
      */
-    *updateProjectTitle(newProjectTitle, id, date, user) {
+    updateProjectTitle(newProjectTitle, id, date, user) {
         try {
             db.transaction(function (tx) {
                 tx.executeSql('UPDATE tickets SET projectTitle=? WHERE id=?', [newProjectTitle, id]);
@@ -224,7 +179,7 @@ class database {
      * @param user
      * @returns {Generator<*, void, *>}
      */
-    *updateResponder(responder, id, date, user) {
+    updateResponder(responder, id, date, user) {
         try {
             db.transaction(function (tx) {
                 tx.executeSql('UPDATE tickets SET responder=? WHERE id=?', [responder, id]);
@@ -245,7 +200,7 @@ class database {
      * @param user
      * @returns {Generator<*, void, *>}
      */
-    *updateCategory(newCategory, id, date, user) {
+    updateCategory(newCategory, id, date, user) {
         try {
             db.transaction(function (tx) {
                 tx.executeSql('UPDATE tickets SET category=? WHERE id=?', [newCategory, id]);
@@ -266,7 +221,7 @@ class database {
      * @param user
      * @returns {Generator<*, void, *>}
      */
-    *updateLabel(newLabel, id, date, user) {
+    updateLabel(newLabel, id, date, user) {
         try {
             db.transaction(function (tx) {
                 tx.executeSql('UPDATE tickets SET label=? WHERE id=?', [newLabel, id]);
@@ -287,7 +242,7 @@ class database {
      * @param user
      * @returns {Generator<*, void, *>}
      */
-    *updateContent(newContent, id, date, user) {
+    updateContent(newContent, id, date, user) {
         try {
             db.transaction(function (tx) {
                 tx.executeSql('UPDATE tickets SET content=? WHERE id=?', [newContent, id]);
@@ -308,7 +263,7 @@ class database {
      * @param user
      * @returns {Generator<*, void, *>}
      */
-    *updateTitle(newTitle, id, date, user) {
+    updateTitle(newTitle, id, date, user) {
         try {
             db.transaction(function (tx) {
                 tx.executeSql('UPDATE tickets SET title=? WHERE id=?', [newTitle, id]);
@@ -334,7 +289,7 @@ class database {
      * @param category
      * @returns {Generator<*, void, *>}
      */
-    *createTicket(id, title, author, time, content, label, projectTitle, responder, category) {
+    createTicket(id, title, author, time, content, label, projectTitle, responder, category) {
         try {
             db.transaction(function (tx) {
                 tx.executeSql('INSERT INTO tickets(id,title,author,time,content,label,projectTitle,responder,category) VALUES (?,?,?,?,?,?,?,?,?)',
@@ -355,7 +310,7 @@ class database {
      * @param user
      * @returns {Generator<*, void, *>}
      */
-    *createHistory(date, description, user) {
+    createHistory(date, description, user) {
         try {
             db.transaction(function (tx) {
                 tx.executeSql('INSERT INTO history(date,description,user) VALUES (?,?,?)',
