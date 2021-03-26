@@ -375,17 +375,5 @@ class database {
     }
 }
 
-exports.data = database();
-exports.data += this.getTicketBit();
-exports.data += this.getHistoryBit();
-exports.data += this.getTicketById();
-exports.data += this.getTicketsByAuthor();
-exports.data += this.getTicketsByLabel();
-exports.data += this.updateProjectTitle();
-exports.data += this.updateResponder();
-exports.data += this.updateCategory();
-exports.data += this.updateLabel();
-exports.data += this.updateContent();
-exports.data += this.updateTitle();
-exports.data += this.createTicket();
+module.exports = database;
 
