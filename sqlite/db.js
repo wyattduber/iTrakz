@@ -57,31 +57,9 @@ class database {
      * @returns {Generator<*, void, *>}
      */
     getHistoryBit(id, bit) {
-        try {
-            db.transaction(function (tx) {
-                switch (bit) {
-                    case "date":
-                        tx.executeSql('SELECT date FROM history WHERE id=?', [id], function (tx, resultSet) {
-                            return resultSet.rows.item(0).text;
-                        });
-                        break;
-                    case "description":
-                        tx.executeSql('SELECT description FROM history WHERE id=?', [id], function (tx, resultSet) {
-                            return resultSet.rows.item(0).text;
-                        });
-                        break;
-                    case "user":
-                        tx.executeSql('SELECT user FROM history WHERE id=?', [id], function (tx, resultSet) {
-                            return resultSet.rows.item(0).text;
-                        });
-                        break;
-                    default:
-                        throw new SQLException();
-                }
-            });
-        } catch (e) {
-            console.error(e);
-        }
+        let stmt = db.prepare("SELECT * FROM history WHERE id=?");
+
+        return stmt.get(id)[bit];
     }
 
     /**
@@ -91,21 +69,9 @@ class database {
      * @returns {Generator<*, void, *>}
      */
     getTicketById(id) {
-        let i, arr;
-        try {
-            db.transaction(function (tx) {
-                tx.executeSql('SELECT * FROM tickets WHERE id=?', [id], function (tx, results) {
-                    arr = [results.rows.length];
-                    for (i = 0; i < results.rows.length; i++) {
-                        arr[i] = results.rows.item(i).text;
-                    }
-                    return arr;
-                });
-            });
+        let stmt = db.prepare("SELECT * FROM tickets WHERE id=?");
 
-        } catch (e) {
-            console.error(e);
-        }
+        return stmt.get(id);
     }
 
     /**
@@ -114,19 +80,15 @@ class database {
      * @returns {Generator<*, void, *>}
      */
     getTicketsByAuthor(author) {
-        try {
-            db.transaction(function (tx) {
-                tx.executeSql('SELECT id FROM tickets WHERE author=?', [author], function (tx, results) {
-                    let i, arr = [results.rows.length];
-                    for (i = 0; i < results.rows.length; i++) {
-                        arr[i] = results.rows.item(i).text;
-                    }
-                    return arr;
-                });
-            })
-        } catch (e) {
-            console.error(e);
+        let stmt = db.prepare("SELECT id FROM tickets WHERE author=?");
+        let ids = stmt.all(author);
+        let returnArr = [];
+
+        for (let i = 0; i < ids.length; i++) {
+            returnArr.push(ids[i]["id"]);
         }
+
+        return returnArr;
     }
 
     /**

@@ -24,7 +24,7 @@ var handlers = {
 
     dbTest: function(request, response) {
         response.writeHead(200);
-        response.end(db.getTicketBit(5, "title"));
+        response.end(db.getTicketById(5));
     }
 }
 
