@@ -1,5 +1,5 @@
-var http = require('http'); // Node HTTP handler
-var handlers = require('./requestHandlers.js').data; // Imports functions from requestHandlers.js
+const http = require('http'); // Node HTTP handler
+const handlers = require('./requestHandlers.js'); // Imports functions from requestHandlers.js
 
 const port = 8080; // default port is 80, but setting to secondary standard 8080. Prod systems should be set to 80
 

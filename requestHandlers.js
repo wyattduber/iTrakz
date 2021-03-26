@@ -1,4 +1,5 @@
-var fs = require('fs');
+const fs = require('fs');
+const database = require('./sqlite/db.js');
 
 var handlers = {
     default: function(request, response) { // This is where we will read the request, find the applicable file, and parse to insert anything from the database as needed
@@ -17,6 +18,13 @@ var handlers = {
             response.writeHead(200);
             response.end(data);
         })
+    },
+
+    dbTest: function(request, response) {
+        let db = new database();
+        response.writeHead(200);
+        response.end(db.createHistory('2020-03-25', 'Test ingest', 'peeweeMan'));
     }
 }
-exports.data = handlers; // Allows access to internal functions by NodeJS module.exports
+
+module.exports = handlers; // Allows access to internal functions by NodeJS module.exports
