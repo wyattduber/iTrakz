@@ -176,7 +176,7 @@ class database {
             return;
         }
 
-        createHistory(date, "Project Update - " + newProjectTitle, user);
+        this.createHistory(date, "Project Update - " + newProjectTitle, user);
     }
 
     *updateResponder(responder, id, date, user) {
@@ -189,7 +189,7 @@ class database {
             return;
         }
 
-        createHistory(date, "Ticket Response", user);
+        this.createHistory(date, "Ticket Response", user);
     }
 
     *updateCategory(newCategory, id, date, user) {
@@ -202,7 +202,7 @@ class database {
             return;
         }
 
-        createHistory(date, "Category Update - " + newCategory, user);
+        this.createHistory(date, "Category Update - " + newCategory, user);
     }
 
     *updateLabel(newLabel, id, date, user) {
@@ -215,7 +215,7 @@ class database {
             return;
         }
 
-        createHistory(date, "Label Change - " + newLabel, user);
+        this.createHistory(date, "Label Change - " + newLabel, user);
     }
 
     *updateContent(newContent, id, date, user) {
@@ -228,7 +228,7 @@ class database {
             return;
         }
 
-        createHistory(date, "Content Edit", user);
+        this.createHistory(date, "Content Edit", user);
     }
 
     *updateTitle(newTitle, id, date, user) {
@@ -241,7 +241,7 @@ class database {
             return;
         }
 
-        createHistory(date, "Title Change - " + newTitle, user);
+        this.createHistory(date, "Title Change - " + newTitle, user);
     }
 
     *createTicket(id, title, author, time, content, label, projectTitle, responder, category) {
@@ -255,7 +255,7 @@ class database {
             return;
         }
 
-        createHistory(time, "Opened Ticket", author);
+        this.createHistory(time, "Opened Ticket", author);
     }
 
     *createHistory(date, description, user) {
@@ -270,18 +270,17 @@ class database {
     }
 }
 
-exports.data = dbInit();
-exports.data += getTicketBit();
-exports.data += getHistoryBit();
-exports.data += getTicketById();
-exports.data += getTicketsByAuthor();
-exports.data += getTicketsByLabel();
-exports.data += updateProjectTitle();
-exports.data += updateResponder();
-exports.data += updateCategory();
-exports.data += updateLabel();
-exports.data += updateContent();
-exports.data += updateTitle();
-exports.data += createTicket();
-
+exports.data = database();
+exports.data += this.getTicketBit();
+exports.data += this.getHistoryBit();
+exports.data += this.getTicketById();
+exports.data += this.getTicketsByAuthor();
+exports.data += this.getTicketsByLabel();
+exports.data += this.updateProjectTitle();
+exports.data += this.updateResponder();
+exports.data += this.updateCategory();
+exports.data += this.updateLabel();
+exports.data += this.updateContent();
+exports.data += this.updateTitle();
+exports.data += this.createTicket();
 
