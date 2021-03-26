@@ -13,12 +13,10 @@ class database {
      * Creates the tickets and the history table if they don't already exist
      */
     constructor() {
-        try {
             db = new sqlite3.Database('database.db');
             console.log("Opened database");
-            db.transaction(function (tx) {
-                tx.executeSql(
-                    'CREATE TABLE IF NOT EXISTS tickets(' +
+            db.serialize(() => {
+                db.run('CREATE TABLE IF NOT EXISTS tickets(' +
                     'id INT NOT NULL, ' +
                     'title VARCHAR(200) NOT NULL, ' +
                     'author VARCHAR(50) NOT NULL, ' +
@@ -28,22 +26,14 @@ class database {
                     'projectTitle VARCHAR(50), ' +
                     'responder VARCHAR(50), ' +
                     'category VARCHAR(20)' +
-                    ');'
-                );
-
-                tx.executeSql(
-                    'CREATE TABLE IF NOT EXISTS history(' +
+                    ');');
+                db.run('CREATE TABLE IF NOT EXISTS history(' +
                     'id INT NOT NULL, ' +
                     'date DATETIME NOT NULL, ' +
                     'description VARCHAR(200) NOT NULL, ' +
                     'user VARCHAR(50) NOT NULL' +
-                    ');'
-                );
-
-            });
-        } catch (e) {
-            console.error(e);
-        }
+                    ');');
+            })
     }
 
     /**
