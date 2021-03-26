@@ -1,6 +1,8 @@
 const fs = require('fs');
 const database = require('./sqlite/db.js');
 
+const db = new database(); // Starts the database connection for the handlers to use
+
 var handlers = {
     default: function(request, response) { // This is where we will read the request, find the applicable file, and parse to insert anything from the database as needed
         var requestedFile = request.url != "/" ? request.url : "/index.html"; // Sets default page to index.html
@@ -21,7 +23,6 @@ var handlers = {
     },
 
     dbTest: function(request, response) {
-        let db = new database();
         response.writeHead(200);
         response.end(db.createHistory('2020-03-25', 'Test ingest', 'peeweeMan'));
     }

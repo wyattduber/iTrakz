@@ -1,4 +1,5 @@
 let db; // Initialize Database Variable
+const sqlite3 = require('sqlite3'); // import sqlite
 
 /**
  * Database Handler Class designed to handle all tickets and history objects needed for the website
@@ -13,7 +14,8 @@ class database {
      */
     constructor() {
         try {
-            db = openDatabase('itrakz', '1.0', 'Tickets', 2 * 1024 * 1024);
+            db = new sqlite3.Database('database.db');
+            console.log("Opened database");
             db.transaction(function (tx) {
                 tx.executeSql(
                     'CREATE TABLE IF NOT EXISTS tickets(' +
