@@ -33,34 +33,6 @@ function dbInit() {
     }
 }
 
-function getHistoryBit(id, bit) {
-    try {
-        db.transaction(function(tx) {
-           switch (bit) {
-               case "date":
-                   tx.executeSql('SELECT date FROM history WHERE id=?', [id], function (tx, resultSet) {
-                       return resultSet.rows.item(0);
-                   });
-                   break;
-               case "description":
-                   tx.executeSql('SELECT description FROM history WHERE id=?', [id], function (tx, resultSet) {
-                       return resultSet.rows.item(0);
-                   });
-                   break;
-               case "user":
-                   tx.executeSql('SELECT user FROM history WHERE id=?', [id], function (tx, resultSet) {
-                       return resultSet.rows.item(0);
-                   });
-                   break;
-               default:
-                   throw new SQLException();
-           }
-        });
-    } catch (e) {
-        console.error(e);
-    }
-}
-
 function getTicketBit(id, bit) {
     try{
         db.transaction(function(tx) {
@@ -102,6 +74,34 @@ function getTicketBit(id, bit) {
                     break;
                 case "category":
                     tx.executeSql('SELECT name FROM tickets WHERE id=?', [id], function (tx, resultSet) {
+                        return resultSet.rows.item(0);
+                    });
+                    break;
+                default:
+                    throw new SQLException();
+            }
+        });
+    } catch (e) {
+        console.error(e);
+    }
+}
+
+function getHistoryBit(id, bit) {
+    try {
+        db.transaction(function(tx) {
+            switch (bit) {
+                case "date":
+                    tx.executeSql('SELECT date FROM history WHERE id=?', [id], function (tx, resultSet) {
+                        return resultSet.rows.item(0);
+                    });
+                    break;
+                case "description":
+                    tx.executeSql('SELECT description FROM history WHERE id=?', [id], function (tx, resultSet) {
+                        return resultSet.rows.item(0);
+                    });
+                    break;
+                case "user":
+                    tx.executeSql('SELECT user FROM history WHERE id=?', [id], function (tx, resultSet) {
                         return resultSet.rows.item(0);
                     });
                     break;
@@ -244,7 +244,7 @@ function updateTitle(newTitle, id, date, user) {
 
 function createTicket(id, title, author, time, content, label, projectTitle, responder, category) {
     try {
-        db.transaction(function(tx) {
+        db.transaction(function (tx) {
             tx.executeSql('INSERT INTO tickets(id,title,author,time,content,label,projectTitle,responder,category) VALUES (?,?,?,?,?,?,?,?,?)',
                 [id, title, author, time, content, label, projectTitle, responder, category]);
         });
@@ -266,4 +266,19 @@ function createHistory(date, description, user) {
         console.error(e);
     }
 }
+
+exports.data = dbInit();
+exports.data += getTicketBit();
+exports.data += getHistoryBit();
+exports.data += getTicketById();
+exports.data += getTicketsByAuthor();
+exports.data += getTicketsByLabel();
+exports.data += updateProjectTitle();
+exports.data += updateResponder();
+exports.data += updateCategory();
+exports.data += updateLabel();
+exports.data += updateContent();
+exports.data += updateTitle();
+exports.data += createTicket();
+
 
