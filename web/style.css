@@ -11,4 +11,82 @@
 h1 {
     font-family: "Satisfy", sans-serif;
     text-align: center;
+    color: #F6F5F5;
+}
+
+hr {
+    fill: black;
+}
+
+.container {
+    margin-left: 13%;
+    margin-top: 2%;
+}
+
+.ticket-dashboard, .active-projects {
+    height: 350px;
+    border: solid 1px #777;
+}
+
+.history-dashboard, .active-tickets {
+    height: 250px;
+    border: solid 1px #777;
+    margin-top: 20px;
+}
+
+.support-tickets-header p{
+    font-size: 20px;
+    font-weight: bold;
+    font-family: "Tahoma", "Helvetica Neue", sans-serif;
+    color: #276678;
+}
+
+.sidenav {
+  height: 100%; /* Full-height: remove this if you want "auto" height */
+  width: 160px; /* Set the width of the sidebar */
+  position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+  top: 10; /* Stay at the top */
+  left: 0;
+  background-color: #276678;
+  overflow-x: hidden;
+  padding-top: 20px;
+}
+
+.sidenav a {
+    text-decoration: none;
+    color: #F6F5F5;
+    padding: 6px 8px 40px 16px;
+    display: block;
+    font-size: 1.25rem;
+    font-family: "Tahoma", "Helvetica Neue", sans-serif;
+}
+
+.form-control {
+    width: 420px;
+    height: 41px;
+}
+
+.nav-color {
+    background-color: #276678;
+}
+
+.bi-search {
+    width: 32px;
+    height: 32px;
+    fill: #F6F5F5;
+    margin-right: 10px;
+    margin-top: 5px;
+}
+
+.bi-person-circle {
+    width: 50px;
+    height: 50px;
+    fill: #F6F5F5;
+}
+
+.bi-layout-wtf, .bi-kanban, .bi-bug {
+    width: 22px;
+    height: 22px;
+    margin-right: 5px;
+    fill: #F6F5F5;
 }
