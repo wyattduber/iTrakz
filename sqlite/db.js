@@ -77,7 +77,7 @@ class database {
     /**
      * Returns the id's of all the tickets by the specified author
      * @param author
-     * @returns {Generator<*, void, *>}
+     * @returns {[]}
      */
     getTicketsByAuthor(author) {
         let stmt = db.prepare("SELECT id FROM tickets WHERE author=?");
@@ -94,7 +94,7 @@ class database {
     /**
      * Gets all tickets by id categorized by their respective labels
      * @param label
-     * @returns {Generator<*, void, *>}
+     * @returns {[]}
      */
     getTicketsByLabel(label) {
         let stmt = db.prepare("SELECT id FROM tickets WHERE label=?");
@@ -147,14 +147,8 @@ class database {
      * @returns {Generator<*, void, *>}
      */
     updateCategory(newCategory, id, user) {
-        try {
-            db.transaction(function (tx) {
-                tx.executeSql('UPDATE tickets SET category=? WHERE id=?', [newCategory, id]);
-            });
-        } catch (e) {
-            console.error(e);
-            return;
-        }
+        let stmt = db.prepare("UPDATE tickets SET category=? WHERE id=?");
+        stmt.run(newCategory, id);
 
         this.createHistory("Category Update - " + newCategory, user);
     }
@@ -168,14 +162,8 @@ class database {
      * @returns {Generator<*, void, *>}
      */
     updateLabel(newLabel, id, user) {
-        try {
-            db.transaction(function (tx) {
-                tx.executeSql('UPDATE tickets SET label=? WHERE id=?', [newLabel, id]);
-            });
-        } catch (e) {
-            console.error(e);
-            return;
-        }
+        let stmt = db.prepare("UPDATE tickets SET label=? WHERE id=?");
+        stmt.run(newLabel, id);
 
         this.createHistory("Label Change - " + newLabel, user);
     }
@@ -189,14 +177,8 @@ class database {
      * @returns {Generator<*, void, *>}
      */
     updateContent(newContent, id, user) {
-        try {
-            db.transaction(function (tx) {
-                tx.executeSql('UPDATE tickets SET content=? WHERE id=?', [newContent, id]);
-            });
-        } catch (e) {
-            console.error(e);
-            return;
-        }
+        let stmt = db.prepare("UPDATE tickets SET content=? WHERE id=?");
+        stmt.run(newContent, id);
 
         this.createHistory("Content Edit", user);
     }
@@ -210,14 +192,8 @@ class database {
      * @returns {Generator<*, void, *>}
      */
     updateTitle(newTitle, id, user) {
-        try {
-            db.transaction(function (tx) {
-                tx.executeSql('UPDATE tickets SET title=? WHERE id=?', [newTitle, id]);
-            });
-        } catch (e) {
-            console.error(e);
-            return;
-        }
+        let stmt = db.prepare("UPDATE tickets SET title=? WHERE id=?");
+        stmt.run(newTitle, id);
 
         this.createHistory("Title Change - " + newTitle, user);
     }
@@ -236,15 +212,8 @@ class database {
      * @returns {Generator<*, void, *>}
      */
     createTicket(id, title, author, content, label, projectTitle, responder, category) {
-        try {
-            db.transaction(function (tx) {
-                tx.executeSql('INSERT INTO tickets(id,title,author,content,label,projectTitle,responder,category) VALUES (?,?,?,date("now"),?,?,?,?,?)',
-                    [id, title, author, time, content, label, projectTitle, responder, category]);
-            });
-        } catch (e) {
-            console.error(e);
-            return;
-        }
+        let stmt = db.prepare("INSERT INTO tickets(id,title,author,content,label,projectTitle,responder,category) VALUES (?,?,?,date('now'),?,?,?,?,?)");
+        stmt.run(id, title, author, content, label, projectTitle, responder, category);
 
         this.createHistory("Opened Ticket", author);
     }
@@ -263,4 +232,3 @@ class database {
 }
 
 module.exports = database;
-
