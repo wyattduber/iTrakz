@@ -24,7 +24,7 @@ var handlers = {
 
     dbTest: function(request, response) {
         response.writeHead(200);
-        response.end(db.updateResponder("Zek", 2, ));
+        response.end(db.createHistory("stupid change", "zek", 1));
     }
 }
 

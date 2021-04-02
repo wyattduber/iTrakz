@@ -124,7 +124,7 @@ class database {
         let stmt = db.prepare("UPDATE tickets SET projectTitle=? WHERE id=?");
         stmt.run(newProjectTitle, id);
 
-        this.createHistory("Project Update - " + newProjectTitle, user);
+        this.createHistory("Project Update - " + newProjectTitle, user, id);
     }
 
     /**
@@ -139,7 +139,7 @@ class database {
         let stmt = db.prepare("UPDATE tickets SET responder=? WHERE id=?");
         stmt.run(responder, id);
 
-        this.createHistory("Ticket Response", user);
+        this.createHistory("Ticket Response", user. id);
     }
 
     /**
@@ -154,7 +154,7 @@ class database {
         let stmt = db.prepare("UPDATE tickets SET category=? WHERE id=?");
         stmt.run(newCategory, id);
 
-        this.createHistory("Category Update - " + newCategory, user);
+        this.createHistory("Category Update - " + newCategory, user, id);
     }
 
     /**
@@ -169,7 +169,7 @@ class database {
         let stmt = db.prepare("UPDATE tickets SET label=? WHERE id=?");
         stmt.run(newLabel, id);
 
-        this.createHistory("Label Change - " + newLabel, user);
+        this.createHistory("Label Change - " + newLabel, user, id);
     }
 
     /**
@@ -184,7 +184,7 @@ class database {
         let stmt = db.prepare("UPDATE tickets SET content=? WHERE id=?");
         stmt.run(newContent, id);
 
-        this.createHistory("Content Edit", user);
+        this.createHistory("Content Edit", user, id);
     }
 
     /**
@@ -199,7 +199,7 @@ class database {
         let stmt = db.prepare("UPDATE tickets SET title=? WHERE id=?");
         stmt.run(newTitle, id);
 
-        this.createHistory("Title Change - " + newTitle, user);
+        this.createHistory("Title Change - " + newTitle, user, id);
     }
 
     /**
@@ -215,11 +215,14 @@ class database {
      * @param category
      * @returns {Generator<*, void, *>}
      */
-    createTicket(id, title, author, content, label, projectTitle, responder, category) {
-        let stmt = db.prepare("INSERT INTO tickets(id,title,author,content,label,projectTitle,responder,category) VALUES (?,?,?,date('now'),?,?,?,?,?)");
-        stmt.run(id, title, author, content, label, projectTitle, responder, category);
+    createTicket(title, author, content, label, projectTitle, responder, category) {
+        let stmt = db.prepare("INSERT INTO tickets(title,author,content,label,projectTitle,responder,category) VALUES (?,?,date('now'),?,?,?,?,?)");
+        stmt.run(title, author, content, label, projectTitle, responder, category);
 
-        this.createHistory("Opened Ticket", author);
+        stmt = db.prepare("SELECT id FROM tickets WHERE title=? AND author=? AND content=? ORDER BY id DESC LIMIT 1");
+        let idOfTicket = stmt.get(title, author, content)['id'];
+
+        this.createHistory("Opened Ticket", author, idOfTicket);
     }
 
     /**
@@ -229,9 +232,15 @@ class database {
      * @param user
      * @returns {Generator<*, void, *>}
      */
-    createHistory(description, user) {
+    createHistory(description, user, idOfTicket) {
         let stmt = db.prepare("INSERT INTO history(date,description,user) VALUES (date('now'),?,?)");
         stmt.run(description, user);
+
+        stmt = db.prepare("SELECT id FROM history WHERE description=? AND user=? ORDER BY date DESC LIMIT 1");
+        let idOfHistory = stmt.get(description, user)['id'];
+
+        stmt = db.prepare("UPDATE tickets SET lastHistoryEvent=? WHERE id=?");
+        stmt.run(idOfHistory, idOfTicket)
     }
 }
 
