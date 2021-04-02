@@ -12,7 +12,15 @@ class database {
      * Creates the tickets and the history table if they don't already exist
      */
     constructor() {
-        let stmt = db.prepare('CREATE TABLE IF NOT EXISTS tickets(' +
+        let stmt = db.prepare('CREATE TABLE IF NOT EXISTS history(' +
+            'id INTEGER PRIMARY KEY AUTOINCREMENT, ' +
+            'date DATETIME NOT NULL, ' +
+            'description VARCHAR(200) NOT NULL, ' +
+            'user VARCHAR(50) NOT NULL' +
+            ');');
+        stmt.run();
+
+        stmt = db.prepare('CREATE TABLE IF NOT EXISTS tickets(' +
             'id INTEGER PRIMARY KEY AUTOINCREMENT, ' +
             'title VARCHAR(200) NOT NULL, ' +
             'author VARCHAR(50) NOT NULL, ' +
@@ -21,17 +29,13 @@ class database {
             'label VARCHAR(20) NOT NULL, ' +
             'projectTitle VARCHAR(50), ' +
             'responder VARCHAR(50), ' +
-            'category VARCHAR(20)' +
+            'category VARCHAR(20),' +
+            'lastHistoryEvent INTEGER,' +
+            'FOREIGN KEY(lastHistoryEvent) REFERENCES history(id)' +
             ');');
         stmt.run();
 
-        stmt = db.prepare('CREATE TABLE IF NOT EXISTS history(' +
-            'id INTEGER PRIMARY KEY AUTOINCREMENT, ' +
-            'date DATETIME NOT NULL, ' +
-            'description VARCHAR(200) NOT NULL, ' +
-            'user VARCHAR(50) NOT NULL' +
-            ');');
-        stmt.run();
+
 
         console.log("Opened database");
     }
