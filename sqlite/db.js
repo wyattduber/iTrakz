@@ -116,7 +116,7 @@ class database {
      * @param user
      * @returns {Generator<*, void, *>}
      */
-    updateProjectTitle(newProjectTitle, id, date, user) {
+    updateProjectTitle(newProjectTitle, id, user) {
         let stmt = db.prepare("UPDATE tickets SET projectTitle=? WHERE id=?");
         stmt.run(newProjectTitle, id);
 
@@ -131,7 +131,7 @@ class database {
      * @param user
      * @returns {Generator<*, void, *>}
      */
-    updateResponder(responder, id, date, user) {
+    updateResponder(responder, id, user) {
         let stmt = db.prepare("UPDATE tickets SET responder=? WHERE id=?");
         stmt.run(responder, id);
 
@@ -146,7 +146,7 @@ class database {
      * @param user
      * @returns {Generator<*, void, *>}
      */
-    updateCategory(newCategory, id, date, user) {
+    updateCategory(newCategory, id, user) {
         try {
             db.transaction(function (tx) {
                 tx.executeSql('UPDATE tickets SET category=? WHERE id=?', [newCategory, id]);
@@ -156,7 +156,7 @@ class database {
             return;
         }
 
-        this.createHistory(date, "Category Update - " + newCategory, user);
+        this.createHistory("Category Update - " + newCategory, user);
     }
 
     /**
@@ -167,7 +167,7 @@ class database {
      * @param user
      * @returns {Generator<*, void, *>}
      */
-    updateLabel(newLabel, id, date, user) {
+    updateLabel(newLabel, id, user) {
         try {
             db.transaction(function (tx) {
                 tx.executeSql('UPDATE tickets SET label=? WHERE id=?', [newLabel, id]);
@@ -177,7 +177,7 @@ class database {
             return;
         }
 
-        this.createHistory(date, "Label Change - " + newLabel, user);
+        this.createHistory("Label Change - " + newLabel, user);
     }
 
     /**
@@ -188,7 +188,7 @@ class database {
      * @param user
      * @returns {Generator<*, void, *>}
      */
-    updateContent(newContent, id, date, user) {
+    updateContent(newContent, id, user) {
         try {
             db.transaction(function (tx) {
                 tx.executeSql('UPDATE tickets SET content=? WHERE id=?', [newContent, id]);
@@ -209,7 +209,7 @@ class database {
      * @param user
      * @returns {Generator<*, void, *>}
      */
-    updateTitle(newTitle, id, date, user) {
+    updateTitle(newTitle, id, user) {
         try {
             db.transaction(function (tx) {
                 tx.executeSql('UPDATE tickets SET title=? WHERE id=?', [newTitle, id]);
