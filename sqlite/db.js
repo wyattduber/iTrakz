@@ -13,7 +13,7 @@ class database {
      */
     constructor() {
         let stmt = db.prepare('CREATE TABLE IF NOT EXISTS tickets(' +
-            'id INT NOT NULL, ' +
+            'id INTEGER PRIMARY KEY AUTOINCREMENT, ' +
             'title VARCHAR(200) NOT NULL, ' +
             'author VARCHAR(50) NOT NULL, ' +
             'time DATETIME NOT NULL, ' +
@@ -26,7 +26,7 @@ class database {
         stmt.run();
 
         stmt = db.prepare('CREATE TABLE IF NOT EXISTS history(' +
-            'id INT NOT NULL, ' +
+            'id INTEGER PRIMARY KEY AUTOINCREMENT, ' +
             'date DATETIME NOT NULL, ' +
             'description VARCHAR(200) NOT NULL, ' +
             'user VARCHAR(50) NOT NULL' +
@@ -117,16 +117,10 @@ class database {
      * @returns {Generator<*, void, *>}
      */
     updateProjectTitle(newProjectTitle, id, date, user) {
-        try {
-            db.transaction(function (tx) {
-                tx.executeSql('UPDATE tickets SET projectTitle=? WHERE id=?', [newProjectTitle, id]);
-            });
-        } catch (e) {
-            console.error(e);
-            return;
-        }
+        let stmt = db.prepare("UPDATE tickets SET projectTitle=? WHERE id=?");
+        stmt.run(newProjectTitle, id);
 
-        this.createHistory(date, "Project Update - " + newProjectTitle, user);
+        this.createHistory("Project Update - " + newProjectTitle, user);
     }
 
     /**
@@ -138,16 +132,10 @@ class database {
      * @returns {Generator<*, void, *>}
      */
     updateResponder(responder, id, date, user) {
-        try {
-            db.transaction(function (tx) {
-                tx.executeSql('UPDATE tickets SET responder=? WHERE id=?', [responder, id]);
-            });
-        } catch (e) {
-            console.error(e);
-            return;
-        }
+        let stmt = db.prepare("UPDATE tickets SET responder=? WHERE id=?");
+        stmt.run(responder, id);
 
-        this.createHistory(date, "Ticket Response", user);
+        this.createHistory("Ticket Response", user);
     }
 
     /**
@@ -210,7 +198,7 @@ class database {
             return;
         }
 
-        this.createHistory(date, "Content Edit", user);
+        this.createHistory("Content Edit", user);
     }
 
     /**
@@ -231,7 +219,7 @@ class database {
             return;
         }
 
-        this.createHistory(date, "Title Change - " + newTitle, user);
+        this.createHistory("Title Change - " + newTitle, user);
     }
 
     /**
@@ -247,10 +235,10 @@ class database {
      * @param category
      * @returns {Generator<*, void, *>}
      */
-    createTicket(id, title, author, time, content, label, projectTitle, responder, category) {
+    createTicket(id, title, author, content, label, projectTitle, responder, category) {
         try {
             db.transaction(function (tx) {
-                tx.executeSql('INSERT INTO tickets(id,title,author,time,content,label,projectTitle,responder,category) VALUES (?,?,?,?,?,?,?,?,?)',
+                tx.executeSql('INSERT INTO tickets(id,title,author,content,label,projectTitle,responder,category) VALUES (?,?,?,date("now"),?,?,?,?,?)',
                     [id, title, author, time, content, label, projectTitle, responder, category]);
             });
         } catch (e) {
@@ -258,7 +246,7 @@ class database {
             return;
         }
 
-        this.createHistory(time, "Opened Ticket", author);
+        this.createHistory("Opened Ticket", author);
     }
 
     /**
@@ -268,15 +256,9 @@ class database {
      * @param user
      * @returns {Generator<*, void, *>}
      */
-    createHistory(date, description, user) {
-        try {
-            db.transaction(function (tx) {
-                tx.executeSql('INSERT INTO history(date,description,user) VALUES (?,?,?)',
-                    [date, description, user]);
-            });
-        } catch (e) {
-            console.error(e);
-        }
+    createHistory(description, user) {
+        let stmt = db.prepare("INSERT INTO history(date,description,user) VALUES (date('now'),?,?)");
+        stmt.run(description, user);
     }
 }
 
