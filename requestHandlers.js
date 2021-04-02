@@ -23,8 +23,33 @@ var handlers = {
     },
 
     dbTest: function(request, response) {
+        db.createTicket("testTicketTitle", "testAuthor", "testContent", "testLabel", "testProjectTitle", "testResponder","testCategory");
+        console.log("Ticket created");
+        db.updateTitle("newTicketTitle", 1, "zek");
+        console.log("Title updated");
+        db.updateContent("newContent", 1, "zek");
+        console.log("Content updated");
+        db.updateLabel("newLabel", 1, "zek");
+        console.log("Label updated");
+        db.updateCategory("newCategory", 1, "zek");
+        console.log("Category updated");
+        db.updateResponder("zekResponder", 1, "zek");
+        console.log("Responder updated");
+        db.updateProjectTitle("newProjectTitle", 1, "zek");
+        console.log("Project title updated");
+        let tmp = db.getTicketsByLabel("newLabel");
+        console.log("Should print 1: " + tmp.toString());
+        tmp = db.getTicketsByAuthor("testAuthor");
+        console.log("Should print 1: " + tmp.toString());
+        tmp = db.getTicketById(1);
+        console.log("Should print whole ticket:\n" + JSON.stringify(tmp));
+        tmp = db.getHistoryBit(1, "description");
+        console.log("Should print createTicket history desc: " + tmp.toString());
+        tmp = db.getTicketBit(1, "title");
+        console.log("Should print ticket title: " + tmp.toString());
+
         response.writeHead(200);
-        response.end(db.createHistory("stupid change", "zek", 1));
+        response.end("oh yuh, it worked; see console");
     }
 }
 

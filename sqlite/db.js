@@ -139,7 +139,7 @@ class database {
         let stmt = db.prepare("UPDATE tickets SET responder=? WHERE id=?");
         stmt.run(responder, id);
 
-        this.createHistory("Ticket Response", user. id);
+        this.createHistory("Ticket Response", user, id);
     }
 
     /**
@@ -216,7 +216,7 @@ class database {
      * @returns {Generator<*, void, *>}
      */
     createTicket(title, author, content, label, projectTitle, responder, category) {
-        let stmt = db.prepare("INSERT INTO tickets(title,author,content,label,projectTitle,responder,category) VALUES (?,?,date('now'),?,?,?,?,?)");
+        let stmt = db.prepare("INSERT INTO tickets(title,author,time,content,label,projectTitle,responder,category) VALUES (?,?,date('now'),?,?,?,?,?)");
         stmt.run(title, author, content, label, projectTitle, responder, category);
 
         stmt = db.prepare("SELECT id FROM tickets WHERE title=? AND author=? AND content=? ORDER BY id DESC LIMIT 1");
@@ -236,7 +236,7 @@ class database {
         let stmt = db.prepare("INSERT INTO history(date,description,user) VALUES (date('now'),?,?)");
         stmt.run(description, user);
 
-        stmt = db.prepare("SELECT id FROM history WHERE description=? AND user=? ORDER BY date DESC LIMIT 1");
+        stmt = db.prepare("SELECT id FROM history WHERE description=? AND user=? ORDER BY id DESC LIMIT 1");
         let idOfHistory = stmt.get(description, user)['id'];
 
         stmt = db.prepare("UPDATE tickets SET lastHistoryEvent=? WHERE id=?");
