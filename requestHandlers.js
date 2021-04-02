@@ -7,6 +7,15 @@ var handlers = {
     default: function(request, response) { // This is where we will read the request, find the applicable file, and parse to insert anything from the database as needed
         var requestedFile = request.url != "/" ? request.url : "/index.html"; // Sets default page to index.html
 
+        /* FIXME:
+         - Read the requestedFile and figure out which page it's asking for
+         - Based on which page it's asking for, create and call a new handler
+         - In each handler, call the database object (see dbTest for examples) to find all the info needed for that specific page
+         - Send the page to the client with response.write()
+         - Before ending the connection, also write() a new string containing a `<script>` tag with all the JS needed to
+           substitute the values obtained from the database into the HTML doc using `"document.getElementById('stuff').innerHTML = " + varFromDatabase;`
+         */
+
         fs.readFile(__dirname + "/web" + requestedFile, function(err, data) {
             if (err) {
                 console.error("Attempted serving \"" + request.url + "\" with error \"" + err + "\"");
@@ -18,7 +27,8 @@ var handlers = {
             }
 
             response.writeHead(200);
-            response.end(data);
+            response.write(data);
+            response.end();
         })
     },
 
