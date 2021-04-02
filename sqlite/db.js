@@ -97,19 +97,15 @@ class database {
      * @returns {Generator<*, void, *>}
      */
     getTicketsByLabel(label) {
-        try {
-            db.transaction(function (tx) {
-                tx.executeSql('SELECT id FROM tickets WHERE label=?', [label], function (tx, results) {
-                    let length = results.rows.length, i, arr = [results.rows.length];
-                    for (i = 0; i < length; i++) {
-                        arr[i] = results.rows.item(i).text;
-                    }
-                    return arr;
-                });
-            });
-        } catch (e) {
-            console.error(e);
+        let stmt = db.prepare("SELECT id FROM tickets WHERE label=?");
+        let ids = stmt.all(label);
+        let returnArr = [];
+
+        for (let i = 0; i < ids.length; i++) {
+            returnArr.push(ids[i]["id"]);
         }
+
+        return returnArr;
     }
 
     /**
