@@ -27,15 +27,12 @@ class database {
             'time DATETIME NOT NULL, ' +
             'content LONGTEXT NOT NULL, ' +
             'label VARCHAR(20) NOT NULL, ' +
-            'projectTitle VARCHAR(50), ' +
             'responder VARCHAR(50), ' +
             'category VARCHAR(20),' +
             'lastHistoryEvent INTEGER,' +
             'FOREIGN KEY(lastHistoryEvent) REFERENCES history(id)' +
             ');');
         stmt.run();
-
-
 
         console.log("Opened database");
     }
@@ -113,25 +110,9 @@ class database {
     }
 
     /**
-     * Updates the project title attribute of the ticket
-     * @param newProjectTitle
-     * @param id
-     * @param date
-     * @param user
-     * @returns {Generator<*, void, *>}
-     */
-    updateProjectTitle(newProjectTitle, id, user) {
-        let stmt = db.prepare("UPDATE tickets SET projectTitle=? WHERE id=?");
-        stmt.run(newProjectTitle, id);
-
-        this.createHistory("Project Update - " + newProjectTitle, user, id);
-    }
-
-    /**
      * Updates the Responder of the ticket if someone responds to it or deletes their response
      * @param responder
      * @param id
-     * @param date
      * @param user
      * @returns {Generator<*, void, *>}
      */
@@ -146,7 +127,6 @@ class database {
      * Updates the category of the ticket
      * @param newCategory
      * @param id
-     * @param date
      * @param user
      * @returns {Generator<*, void, *>}
      */
@@ -161,7 +141,6 @@ class database {
      * Updates the label of the ticket
      * @param newLabel
      * @param id
-     * @param date
      * @param user
      * @returns {Generator<*, void, *>}
      */
@@ -176,7 +155,6 @@ class database {
      * Updates the content of the ticket with a new string
      * @param newContent
      * @param id
-     * @param date
      * @param user
      * @returns {Generator<*, void, *>}
      */
@@ -191,7 +169,6 @@ class database {
      * Updates the title of the ticket
      * @param newTitle
      * @param id
-     * @param date
      * @param user
      * @returns {Generator<*, void, *>}
      */
@@ -204,10 +181,8 @@ class database {
 
     /**
      * Creates a new ticket row in the database upon the creation of a ticket on the website
-     * @param id
      * @param title
      * @param author
-     * @param time
      * @param content
      * @param label
      * @param projectTitle
@@ -215,9 +190,9 @@ class database {
      * @param category
      * @returns {Generator<*, void, *>}
      */
-    createTicket(title, author, content, label, projectTitle, responder, category) {
-        let stmt = db.prepare("INSERT INTO tickets(title,author,time,content,label,projectTitle,responder,category) VALUES (?,?,date('now'),?,?,?,?,?)");
-        stmt.run(title, author, content, label, projectTitle, responder, category);
+    createTicket(title, author, content, label, responder, category) {
+        let stmt = db.prepare("INSERT INTO tickets(title,author,time,content,label,responder,category) VALUES (?,?,date('now'),?,?,?,?)");
+        stmt.run(title, author, content, label, responder, category);
 
         stmt = db.prepare("SELECT id FROM tickets WHERE title=? AND author=? AND content=? ORDER BY id DESC LIMIT 1");
         let idOfTicket = stmt.get(title, author, content)['id'];
@@ -227,9 +202,9 @@ class database {
 
     /**
      * Creates a new history row in the database for any creation or update event
-     * @param date
      * @param description
      * @param user
+     * @param idOfTicket
      * @returns {Generator<*, void, *>}
      */
     createHistory(description, user, idOfTicket) {

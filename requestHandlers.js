@@ -33,7 +33,7 @@ var handlers = {
     },
 
     dbTest: function(request, response) {
-        db.createTicket("testTicketTitle", "testAuthor", "testContent", "testLabel", "testProjectTitle", "testResponder","testCategory");
+        db.createTicket("testTicketTitle", "testAuthor", "testContent", "testLabel", "testResponder","testCategory");
         console.log("Ticket created");
         db.updateTitle("newTicketTitle", 1, "zek");
         console.log("Title updated");
@@ -45,8 +45,6 @@ var handlers = {
         console.log("Category updated");
         db.updateResponder("zekResponder", 1, "zek");
         console.log("Responder updated");
-        db.updateProjectTitle("newProjectTitle", 1, "zek");
-        console.log("Project title updated");
         let tmp = db.getTicketsByLabel("newLabel");
         console.log("Should print 1: " + tmp.toString());
         tmp = db.getTicketsByAuthor("testAuthor");
