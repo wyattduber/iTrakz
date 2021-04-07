@@ -29,12 +29,12 @@ hr {
     margin-top: 2%;
 }
 
-.ticket-dashboard, .active-projects {
+.ticket-dashboard, .history-dashboard {
     height: 350px;
     border: solid 1px #777;
 }
 
-.history-dashboard, .active-tickets {
+.active-tickets {
     height: 350px;
     border: solid 1px #777;
     margin-top: 20px;
@@ -127,12 +127,6 @@ hr {
     margin-right: 5%;
 }
 
-.project-title {
-    font-size: 10px;
-    color: #1687A7;
-    margin-bottom: 1px;
-}
-
 .main-title {
     font-size: 18px;
     font-weight: bold;
@@ -196,4 +190,19 @@ hr {
     text-align: center;
     font-size: 16px;
     color:#276678;
+}
+
+.ticket-main {
+    width: 75%;
+}
+
+.column-header {
+    font-size: 1.25rem;
+    margin-bottom: 10px;
+}
+
+.ticket-indiv {
+    background: #276678;
+    height: 3rem;
+    color: #F6F5F5;
 }
