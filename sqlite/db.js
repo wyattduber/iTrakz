@@ -38,6 +38,17 @@ class database {
     }
 
     /**
+     * Returns the amount of tickets currently in the system.
+     * @returns {*}
+     */
+    checkOpenTickets() {
+        let stmt = db.prepare("SELECT * FROM tickets");
+
+        return stmt.get().length;
+    }
+
+
+    /**
      * Returns the specific part of the ticket, in string form
      * @param id
      * @param bit
