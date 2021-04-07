@@ -8,10 +8,14 @@ import ActiveTickets from "./ActiveTickets";
 function App() {
     return (
         <div className="App">
+            {/* Navigation */}
             <TopNav />
             <SideNav />
+
+            {/* Home Page Boxes */}
             <div class="container main-boxes">
                 <div class="row">
+                    {/* Ticket Dashboard */}
                     <div class="col-5 ticket-dashboard">
                         <div class="support-tickets-header">
                             <h3>Support Tickets</h3>
@@ -26,7 +30,7 @@ function App() {
                         <HomeTicketInfo />
                         <HomeTicketInfo />
                     </div>
-
+                    {/* History Dashboard */}
                     <div class="col-5 history-dashboard offset-1">
                         <h3>History</h3>
                         <hr />
@@ -53,8 +57,12 @@ function App() {
                         </div>
                     </div>
                 </div>
+                {/* Active Tickets Dashboard */}
                 <ActiveTickets />
             </div>
+        
+        {/* Tickets.html */}
+
         </div>
     );
 }
