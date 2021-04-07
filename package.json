@@ -1,5 +1,5 @@
 {
   "dependencies": {
-    "better-sqlite3": "^7.1.2"
+    "better-sqlite3": "^7.1.4"
   }
 }
