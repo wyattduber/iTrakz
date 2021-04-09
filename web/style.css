@@ -89,6 +89,13 @@ hr {
     font-size: 1.25rem;
 }
 
+.nav-ticket {
+    background-color: #777;
+    font-size: 1.2rem;
+    border-radius: .5rem;
+    border: none;
+}
+
 .form-control {
     width: 420px;
     height: 41px;
@@ -112,30 +119,22 @@ hr {
     fill: #F6F5F5;
 }
 
-.bi-layout-wtf, .bi-kanban, .bi-bug{
+.bi-layout-wtf, .bi-bug{
     width: 22px;
     height: 22px;
     margin-right: 5px;
     fill: #F6F5F5;
 }
 
-.bi-github { 
-    width: 3rem;
-    height: 3rem;
-    fill: #276678;
-    float: left;
-    margin-right: 5%;
-}
-
 .main-title {
-    font-size: 18px;
+    font-size: 20px;
     font-weight: bold;
     color: #276678;
     margin-bottom: 1px;
 }
 
 .description { 
-    font-size: 10px;
+    font-size: 14px;
     color: #1687A7;
 }
 
@@ -205,4 +204,25 @@ hr {
     background: #276678;
     height: 3rem;
     color: #F6F5F5;
+}
+
+@media (max-width: 1400px) {
+    .btn {
+        font-size: .9rem;
+    }
+
+    .user {
+        margin-right: 15%;
+    }
+
+    .circle {
+    width: 190px;
+    height: 181px;
+    margin-left: 4%;
+    font-size: 72px;
+    }
+
+    .nav-ticket {
+    font-size: 1rem;
+    }
 }

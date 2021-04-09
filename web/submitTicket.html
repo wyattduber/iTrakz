@@ -66,22 +66,16 @@
 <!--Ticket-->
 <div class="container main-boxes">
     <div class="row">
-        <form action="submit">
+        <form id='ticketForm'>
             <label for="requester">Requester: </label>
             <input type="text" id="requester" name="requester" required>
             <br><br>
             <label for="subject">Subject: </label>
             <input type="text" id="subject" name="subject" required>
             <br><br>
-            <!-- <label for="status">Status: </label>
-            <select id="status" name="status">
-                <option value="open">Open</option>
-                <option value="in-progress">In Progress</option>
-                <option value="on-hold">On Hold</option>
-                <option value="closed">Closed</option>
-                <option value="cancelled">Cancelled</option>
-            </select>
-            <br><br> -->
+            <label for="description">Description: </label>
+            <textarea name="description" id="description" cols="20" rows="1" required></textarea>
+            <br><br>
             <label for="priority">Priority: </label>
             <select id="priority" name="priority" required>
                 <option value="low">Low</option>
@@ -89,14 +83,8 @@
                 <option value="high">High</option>
             </select>
             <br><br>
-            <label for="project">Project: </label>
-            <input type="text" id="project" name="project">
-            <br><br>
             <label for="assigned-to">Assigned to: </label>
             <input type="text" id="assigned-to" name="assigned-to" required>
-            <br><br>
-            <label for="description">Description: </label>
-            <textarea name="description" id="description" cols="20" rows="1" required></textarea>
             <br><br>
             <input type="submit" value="Submit Ticket">
         </form>
