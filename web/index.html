@@ -68,7 +68,9 @@
             <div class="col-5 ticket-dashboard">
                 <div class="support-tickets-header">
                     <h3>Support Tickets</h3>
-                    <a href="submitTicket.html"><button class="btn btn-primary">Create Ticket</button></a>
+                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">
+                        Create Ticket
+                    </button>
                     <hr>
                 </div>
 
@@ -187,6 +189,44 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalLabel">Create Ticket</h5>
+                        <button type="button" class="close" data-bs-dismiss="modal">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form id='ticketForm'>
+                            <label for="requester" class="form-label">Requester: </label>
+                            <input type="text" id="requester" name="requester" class="form-control" required>
+                            
+                            <label for="subject" class="form-label">Subject: </label>
+                            <input type="text" id="subject" name="subject" class="form-control" required>
+
+                            <label for="description" class="form-label">Description: </label>
+                            <textarea name="description" id="description" cols="20" rows="1" class="form-control" required></textarea>
+
+                            <label for="priority" class="form-label">Priority: </label>
+                            <select id="priority" name="priority" class="form-control" required>
+                                <option value="low">Low</option>
+                                <option value="medium">Medium</option>
+                                <option value="high">High</option>
+                            </select>
+                
+                            <label for="assigned-to" class="form-label">Assigned to: </label>
+                            <input type="text" id="assigned-to" name="assigned-to" class="form-control" required>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Submit Ticket</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 </body>
 
 </html>
