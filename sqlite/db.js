@@ -25,6 +25,7 @@ class database {
             'title VARCHAR(200) NOT NULL, ' +
             'author VARCHAR(50) NOT NULL, ' +
             'time DATETIME NOT NULL, ' +
+            'description VARCHAR(100) NOT NULL' +
             'content LONGTEXT NOT NULL, ' +
             'label VARCHAR(20) NOT NULL, ' +
             'responder VARCHAR(50), ' +
@@ -38,15 +39,34 @@ class database {
     }
 
     /**
-     * Returns the amount of tickets currently in the system.
+     * Returns the amount of new tickets currently in the system.
      * @returns {*}
      */
-    checkOpenTickets() {
-        let stmt = db.prepare("SELECT * FROM tickets");
+    checkNewOpenTickets() {
+        let stmt = db.prepare("SELECT * FROM tickets WHERE label='New'");
 
-        return stmt.get().length;
+        return stmt.all().length;
     }
 
+    /**
+     * Returns all of the open In Progress tickets currently in the system
+     * @returns {*}
+     */
+    checkInProgressTickets() {
+        let stmt = db.prepare("SELECT * FROM tickets WHERE label='In Progress'");
+
+        return stmt.all().length;
+    }
+
+    /**
+     * Returns all of the open new tickets currently in the system
+     * @returns {*}
+     */
+    getOpenTickets() {
+        let stmt = db.prepare("SELECT * FROM tickets");
+
+        return stmt.all();
+    }
 
     /**
      * Returns the specific part of the ticket, in string form
@@ -202,13 +222,21 @@ class database {
      * @returns {Generator<*, void, *>}
      */
     createTicket(title, author, content, label, responder, category) {
-        let stmt = db.prepare("INSERT INTO tickets(title,author,time,content,label,responder,category) VALUES (?,?,date('now'),?,?,?,?)");
-        stmt.run(title, author, content, label, responder, category);
+        const description = content.substring(0, 49);
+
+        let stmt = db.prepare("INSERT INTO tickets(title,author,time,description,content,label,responder,category) VALUES (?,?,date('now'),?,?,?,?,?)");
+        stmt.run(title, author, description, content, label, responder, category);
 
         stmt = db.prepare("SELECT id FROM tickets WHERE title=? AND author=? AND content=? ORDER BY id DESC LIMIT 1");
         let idOfTicket = stmt.get(title, author, content)['id'];
 
         this.createHistory("Opened Ticket", author, idOfTicket);
+    }
+
+    getHistory() {
+        let stmt = db.prepare("SELECT * FROM history");
+
+        return stmt.all();
     }
 
     /**
