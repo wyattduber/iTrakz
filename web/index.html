@@ -141,7 +141,7 @@
                         <form id='ticketForm'>
                             <label for="requester" class="form-label">Requester: </label>
                             <input type="text" id="requester" name="requester" class="form-control" required>
-                            
+
                             <label for="subject" class="form-label">Subject: </label>
                             <input type="text" id="subject" name="subject" class="form-control" required>
 
@@ -154,9 +154,13 @@
                                 <option value="medium">Medium</option>
                                 <option value="high">High</option>
                             </select>
-                
+
                             <label for="assigned-to" class="form-label">Assigned to: </label>
                             <input type="text" id="assigned-to" name="assigned-to" class="form-control" required>
+
+                            <!--Optional (?) attachment (can there be multiple?)-->
+                            <!--<label for="attachments" class="form-label">Attachments: </label>
+                            <input type="file" id="attachments" name="attachments" class="form-control">-->
                         </form>
                     </div>
                     <div class="modal-footer">
@@ -165,6 +169,37 @@
                 </div>
             </div>
         </div>
+
+        <!-- Create Login Popup -->
+        <!-- Make the person icon in the top-right a button  -->
+        <!--Add Login / Sign Up words (-Name-'s Account?)
+        Add some kind of indicator if they are logged in
+        Link up with database if possible
+        Link with "Assigned To" if possible?-->
+        <!--<div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalLabel">Login</h5>
+                        <button type="button" class="close" data-bs-dismiss="modal">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form id='Login Form'>
+                            <label for="username" class="form-label">Username: </label>
+                            <input type="text" id="username" name="username" class="form-control" required>
+
+                            <label for="pass" class="form-label">Password: </label>
+                            <input type="password" id="pass" name="pass" class="form-control" required>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Login</button>
+                    </div>
+                </div>
+            </div>
+        </div>-->
 </body>
 
 </html>
