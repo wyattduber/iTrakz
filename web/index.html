@@ -25,17 +25,17 @@
 </head>
 
 <body>
-    <nav class="navbar nav-color">
+    <nav class="navbar nav-color sticky-top">
         <div class="container-fluid">
             <span class="navbar-brand mb-0">
                 <h1>iTrakz</h1>
             </span>
             <form class="d-flex">
+                <input type="search" class="form-control me-2" placeholder="Search">
                 <svg xmlns="http://www.w3.org/2000/svg" class="bi bi-search" viewBox="0 0 16 16">
                     <path
                         d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
                 </svg>
-                <input type="search" class="form-control me-2" placeholder="Search">
             </form>
             <svg xmlns="http://www.w3.org/2000/svg" class="bi bi-person-circle" viewBox="0 0 16 16">
                 <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
@@ -73,22 +73,11 @@
                     </button>
                     <hr>
                 </div>
+                <div id="tickList">
+                    
+                </div>
 
-                <p class="main-title">Issue Title</p>
-                <p class="description">Description of titlle. Lorem Ipsum...</p>
-
-                <hr>
-
-      
-                <p class="main-title">Issue Title</p>
-                <p class="description">Description of titlle. Lorem Ipsum...</p>
                 
-                <hr>
-
-                <p class="main-title">Issue Title</p>
-                <p class="description">Description of titlle. Lorem Ipsum...</p>
-                
-                <hr>
             </div>
             
             <div class="col-5 history-dashboard offset-1">
@@ -108,59 +97,7 @@
                     </div>
                 </div>
 
-                <div class="history-info">
-                    <div class="row">
-                        <div class="col-2 date">
-                            <p>Yesterday</p>
-                        </div>
-                        <div class="col hist-description">
-                            <p>Lorem ipsum dolor sit amet</p>
-                        </div>
-                        <div class="col-1 user">
-                            <p>Admin</p>
-                        </div>
-                        <hr>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-2 date">
-                            <p>Yesterday</p>
-                        </div>
-                        <div class="col hist-description">
-                            <p>Lorem ipsum dolor sit amet</p>
-                        </div>
-                        <div class="col-1 user">
-                            <p>Admin</p>
-                        </div>
-                        <hr>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-2 date">
-                            <p>Yesterday</p>
-                        </div>
-                        <div class="col hist-description">
-                            <p>Lorem ipsum dolor sit amet</p>
-                        </div>
-                        <div class="col-1 user">
-                            <p>Admin</p>
-                        </div>
-                        <hr>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-2 date">
-                            <p>Yesterday</p>
-                        </div>
-                        <div class="col hist-description">
-                            <p>Lorem ipsum dolor sit amet</p>
-                        </div>
-                        <div class="col-1 user">
-                            <p>Admin</p>
-                        </div>
-                        <hr>
-                    </div>
-                </div>
+                <div class="history-info" id="historyList"></div>
             </div>
             
         </div>
@@ -173,15 +110,15 @@
 
                 <div class="row circles">
                     <div class="col">
-                        <div class="circle">
-                           2
+                        <div class="circle" id="new-open-tickets">
+                           
                         </div>
                         <p class="circle-caption">New Tickets</p>
                     </div>
                     
                     <div class="col">
-                        <div class="circle">
-                            2
+                        <div class="circle" id="ip-tickets">
+                            
                         </div>
                         <p class="circle-caption">In Progress Tickets</p>
                     </div>
@@ -190,6 +127,7 @@
         </div>
     </div>
 
+    <!-- Create Ticket Popup -->
     <div class="modal fade" id="myModal" role="dialog">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">

@@ -24,6 +24,7 @@ hr {
     opacity: 100%;
 }
 
+/* Main Dashboard Boxes */
 .main-boxes {
     margin-left: 13%;
     margin-top: 2%;
@@ -44,15 +45,9 @@ hr {
     padding-left: 0;
     padding-right: 0;
 }
+/* ----------------------------------- */
 
-.history-dashboard hr { 
-    margin-bottom: 0;
-}
-
-.history-dashboard h3 {
-    margin-left: 2.5%;
-}
-
+/* Elements inside the Boostrap Row/Column layout */
 .row h3{
     font-size: 20px;
     font-weight: bold;
@@ -69,6 +64,9 @@ hr {
     text-align: center;
     filter: drop-shadow(0px 3px 6px #276678);
 }
+/* ----------------------------------- */
+
+/* Side Navigation */
 
 .sidenav {
   height: 100%; /* Full-height: remove this if you want "auto" height */
@@ -78,7 +76,6 @@ hr {
   left: 0;
   background-color: #276678;
   overflow-x: hidden;
-  padding-top: 20px;
 }
 
 .sidenav a {
@@ -88,23 +85,31 @@ hr {
     display: block;
     font-size: 1.25rem;
 }
+/* ----------------------------------- */
 
+/* Create Ticket Nav Button */
 .nav-ticket {
     background-color: #777;
     font-size: 1.2rem;
     border-radius: .5rem;
     border: none;
 }
+/* ----------------------------------- */
 
+/* Form */
 .form-control {
     width: 420px;
     height: 41px;
 }
+/* ----------------------------------- */
 
+/* Navigation Color */
 .nav-color {
     background-color: #276678;
 }
+/* ----------------------------------- */
 
+/* Bootstrap Icons */
 .bi-search {
     width: 32px;
     height: 32px;
@@ -125,7 +130,9 @@ hr {
     margin-right: 5px;
     fill: #F6F5F5;
 }
+/* ----------------------------------- */
 
+/* Ticket Dashboard */
 .main-title {
     font-size: 20px;
     font-weight: bold;
@@ -137,7 +144,9 @@ hr {
     font-size: 14px;
     color: #1687A7;
 }
+/* ----------------------------------- */
 
+/* History Dashboard */
 .history-nav { 
     background: #D3E0EA;
     color: #333;
@@ -168,6 +177,16 @@ hr {
     width: 96%;
 }
 
+.history-dashboard hr { 
+    margin-bottom: 0;
+}
+
+.history-dashboard h3 {
+    margin-left: 2.5%;
+}
+/* ----------------------------------- */
+
+/* Circle Ticket Numbers Dashboard */
 .circles {
     margin-top: 6%;
 }
@@ -190,7 +209,9 @@ hr {
     font-size: 16px;
     color:#276678;
 }
+/* ----------------------------------- */
 
+/* Ticket Body */
 .ticket-main {
     width: 75%;
 }
@@ -205,7 +226,9 @@ hr {
     height: 3rem;
     color: #F6F5F5;
 }
+/* ----------------------------------- */
 
+/* For smaller laptops */
 @media (max-width: 1400px) {
     .btn {
         font-size: .9rem;

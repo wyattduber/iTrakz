@@ -42,7 +42,15 @@ function fetchHistory() {
         const description = history[i].description;
         const user = history[i].user;
 
-        //TODO Make an HTML adder sequence like in the fetchTickets method above
+        //DONE
+        historyList += '<div class="row">' +
+                        '<div class="col-2 date">' +
+                        '<p>' + date + '</p>' + '</div>' +
+                        '<div class="col hist-description">' +
+                        '<p>' + description + '</p>' + '</div>' +
+                        '<div class="col-1 user">' +
+                        '<p>' + user + '</p>' + '</div>' +
+                        '<hr />' + '</div>';
     }
 
 
@@ -51,5 +59,29 @@ function fetchHistory() {
 function getTotals() {
     const newTickets = db.checkNewOpenTickets();
     const inProgressTickets = db.checkInProgressTickets();
-    //TODO Implement the HTML to change the numbers of each tickets
+
+    //Done I think
+    const openTickets = document.getElementById("new-open-tickets");
+    openTickets = newTickets; 
+
+    const ipTickets = document.getElementById("ip-tickets");
+    ipTickets = inProgressTickets;
+}
+
+//For Dashboard Ticket List, I think is correct if the main ticket list is correct as well
+function dashboardTicketList() {
+    const dashtickets = db.getOpenTickets();
+
+    const dashTickList = document.getElementById('tickList');
+
+    dashTickList.innerHTML = '';
+
+    for(let i = 0; i < 3; i++) {
+        const mainTitle = dashtickets[i].title;
+        const dashdescription = dashtickets[i].description;
+
+        dashTickList += '<p class="main-title">' + mainTitle + '</p>' +
+                        '<p class="description">' + dashdescription + '</p>' +
+                        '<hr />';
+    }
 }
