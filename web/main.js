@@ -1,14 +1,13 @@
 const database = require('../sqlite/db.js');
 let db = new database(); // Starts the database connection for the handlers to use
-
-const el = document.getElementById('ticketForm');
-
+document.getElementById('ticketForm');
 function fetchTickets() {
     const tickets = db.getOpenTickets();
     const ticketsList = document.getElementById('ticketList');
 
     if (tickets.length < 1) {
-        return; //TODO: Add HTML here for the case that there are no open tickets
+        ticketsList.innerHTML += '<h3>No Open Tickets</h3>';
+        return;
     }
 
     ticketsList.innerHTML = '';
@@ -34,7 +33,7 @@ function fetchTickets() {
 function fetchHistory() {
     const history = db.getHistory();
 
-    const historyList = document.getElementById('historyList');
+    let historyList = document.getElementById('historyList');
 
     historyList.innerHTML = '';
     for (let i = 0; i < history.length; i++) {
@@ -62,25 +61,25 @@ function getTotals() {
 
     //Done I think
     const openTickets = document.getElementById("new-open-tickets");
-    openTickets = newTickets; 
+    openTickets.innerHTML += newTickets;
 
     const ipTickets = document.getElementById("ip-tickets");
-    ipTickets = inProgressTickets;
+    ipTickets.innerHTML += inProgressTickets;
 }
 
 //For Dashboard Ticket List, I think is correct if the main ticket list is correct as well
 function dashboardTicketList() {
     const dashtickets = db.getOpenTickets();
 
-    const dashTickList = document.getElementById('tickList');
+    let dashTickList = document.getElementById('tickList');
 
     dashTickList.innerHTML = '';
 
-    for(let i = 0; i < 3; i++) {
+    for(let i = 0; i < 2; i++) {
         const mainTitle = dashtickets[i].title;
         const dashdescription = dashtickets[i].description;
 
-        dashTickList += '<p class="main-title">' + mainTitle + '</p>' +
+        dashTickList.innerHTML += '<p class="main-title">' + mainTitle + '</p>' +
                         '<p class="description">' + dashdescription + '</p>' +
                         '<hr />';
     }
