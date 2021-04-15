@@ -25,7 +25,7 @@ class database {
             'title VARCHAR(200) NOT NULL, ' +
             'author VARCHAR(50) NOT NULL, ' +
             'time DATETIME NOT NULL, ' +
-            'description VARCHAR(100) NOT NULL' +
+            'description VARCHAR(100) NOT NULL,' +
             'content LONGTEXT NOT NULL, ' +
             'label VARCHAR(20) NOT NULL, ' +
             'responder VARCHAR(50), ' +
