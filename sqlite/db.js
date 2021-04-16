@@ -222,9 +222,10 @@ class database {
      * @returns {Generator<*, void, *>}
      */
     createTicket(title, author, content, label, responder, category) {
-        const description = content.substring(0, 49);
+        let description = content.substring(0, 49);
+        description += '...';
 
-        let stmt = db.prepare("INSERT INTO tickets(title,author,time,description,content,label,responder,category) VALUES (?,?,date('now'),?,?,?,?,?)");
+        let stmt = db.prepare("INSERT INTO tickets(title,author,time,description,content,label,responder,category) VALUES (?,?,datetime('now'),?,?,?,?,?)");
         stmt.run(title, author, description, content, label, responder, category);
 
         stmt = db.prepare("SELECT id FROM tickets WHERE title=? AND author=? AND content=? ORDER BY id DESC LIMIT 1");
@@ -247,7 +248,7 @@ class database {
      * @returns {Generator<*, void, *>}
      */
     createHistory(description, user, idOfTicket) {
-        let stmt = db.prepare("INSERT INTO history(date,description,user) VALUES (date('now'),?,?)");
+        let stmt = db.prepare("INSERT INTO history(date,description,user) VALUES (datetime('now'),?,?)");
         stmt.run(description, user);
 
         stmt = db.prepare("SELECT id FROM history WHERE description=? AND user=? ORDER BY id DESC LIMIT 1");
