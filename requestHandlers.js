@@ -44,7 +44,22 @@ var handlers = {
     },
 
     homepage: function() {
-        return ""; // TODO pull stuff from database and insert as <script> tag here
+        //Initialize the Script
+        let homePageCode = "<script>\n";
+
+        //Open Tickets Circle
+        const totalOpenTickets = db.checkNewOpenTickets();
+        homePageCode += "let openCircle = document.getElementById(\'new-open-tickets\');\n";
+        homePageCode += "openCircle.innerHTML += \"" + totalOpenTickets + "\";\n";
+
+        //In Progress Tickets Circle
+        const totalIPTickets = db.checkInProgressTickets();
+        homePageCode += "let ipCircle = document.getElementById(\'ip-tickets\');\n";
+        homePageCode += "ipCircle.innerHTML += \"" + totalIPTickets + "\";\n";
+
+
+        homePageCode += "</script>\n";
+        return homePageCode;
     },
 
     tickets: function() {
@@ -59,7 +74,7 @@ var handlers = {
         ticketsList += "let row;\n";
         for (let i = 0; i < tickets.length; i++) {
             let responder = "None";
-            if (tickets[i].responder !== "null") {
+            if (tickets[i].responder !== null) {
                 responder = tickets[i].responder;
             }
             ticketsList += "row = table.insertRow(" + (i + 1) + ");\n"; // Used i + 1 because row 0 was our header
