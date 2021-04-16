@@ -18,14 +18,14 @@ function fetchTickets() {
         const label = tickets[i].label;
         const assignedTo = tickets[i].responder;
 
-        ticketsList.innerHTML += '<div class="row ticket-indiv">' +
-                                 '<div class="col-2">' + author + '</div>' +
-                                 '<div class="col-1">1</div>' +
-                                 '<div class="col-2">' + title + '</div>' +
-                                 '<div class="col-3">' + description +'</div>' +
-                                 '<div class="col-1">' + label + '</div>' +
-                                 '<div class="col-2">' + assignedTo +'</div>' +
-                                 '</div>';
+        ticketsList.innerHTML += '<tr class="ticket-indiv">' +
+                                 '<td>' + author + '</td>' +
+                                 '<td>1</td>' +
+                                 '<td>' + title + '</td>' +
+                                 '<td>' + description +'</td>' +
+                                 '<td>' + label + '</td>' +
+                                 '<td>' + assignedTo +'</td>' +
+                                 '</tr>';
     }
 }
 
