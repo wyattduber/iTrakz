@@ -15,7 +15,7 @@ function fetchTickets() {
         const author = tickets[i].author;
         const title = tickets[i].title;
         const description = tickets[i].description;
-        const status = tickets[i].status;
+        const label = tickets[i].label;
         const assignedTo = tickets[i].responder;
 
         ticketsList.innerHTML += '<tr class="ticket-indiv">' +
@@ -23,7 +23,7 @@ function fetchTickets() {
                                  '<td>1</td>' +
                                  '<td>' + title + '</td>' +
                                  '<td>' + description +'</td>' +
-                                 '<td>' + status + '</td>' +
+                                 '<td>' + label + '</td>' +
                                  '<td>' + assignedTo +'</td>' +
                                  '</tr>';
     }

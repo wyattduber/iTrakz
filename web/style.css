@@ -213,19 +213,35 @@ hr {
 
 /* Ticket Body */
 .ticket-main {
-    width: 75%;
+    border-collapse: collapse;
+    margin: 25px auto;
+    border: thin solid #777;
 }
 
-.column-header {
-    font-size: 1.25rem;
-    margin-bottom: 10px;
+.table {
+    --bs-table-striped-bg: #D3E0EA;
+    --bs-table-striped-color: #333;
 }
 
-.ticket-indiv {
-    background: #276678;
-    height: 3rem;
+.ticket-main thead tr {
+    background-color: #276678;
     color: #F6F5F5;
+    text-align: left;
 }
+
+.ticket-main th, .ticket-main td {
+    padding: 7px 10px;
+}
+
+.ticket-main tbody tr {
+    border-bottom: thin solid #777;
+}
+
+.ticket-main tbody tr td {
+    word-wrap: break-word;
+}
+
+
 /* ----------------------------------- */
 
 /* For smaller laptops */
@@ -247,5 +263,9 @@ hr {
 
     .nav-ticket {
     font-size: 1rem;
+    }
+
+    .ticket-main {
+    margin: 25px 200px;
     }
 }
