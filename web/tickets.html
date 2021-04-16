@@ -69,16 +69,26 @@
         </a>
     </div>
 
-    <table class="container ticket-main" id="ticket-main">
-        <tr>
-            <th>Requester</th>
-            <th>ID</th>
-            <th>Subject</th>
-            <th>Description</th>
-            <th>Priority</th>
-            <th>Assigned To</th>
-        </tr>
-    </table>
+    <div class="table-responsive">
+        <table class="table table-striped container ticket-main">
+            <thead>
+                <tr>
+                    <th>Requester</th>
+                    <th>ID</th>
+                    <th>Subject</th>
+                    <th>Description</th>
+                    <th>Priority</th>
+                    <th>Assigned To</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody id="ticketList">
+                
+            </tbody>
+        
+        </table>
+    </div>
+    
 
         <!-- Create Ticket popup -->
         <div class="modal fade" id="myModal" role="dialog">

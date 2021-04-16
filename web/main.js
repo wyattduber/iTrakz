@@ -13,18 +13,21 @@ function fetchTickets() {
     ticketsList.innerHTML = '';
     for (let i = 0; i < tickets.length; i++) {
         const author = tickets[i].author;
+        const id = tickets[i].id;
         const title = tickets[i].title;
         const description = tickets[i].description;
+        const priority = tickets[i].category;
         const label = tickets[i].label;
         const assignedTo = tickets[i].responder;
 
-        ticketsList.innerHTML += '<tr class="ticket-indiv">' +
+        ticketsList.innerHTML += '<tr>' +
                                  '<td>' + author + '</td>' +
-                                 '<td>1</td>' +
+                                 '<td>' + id + '</td>' +
                                  '<td>' + title + '</td>' +
                                  '<td>' + description +'</td>' +
-                                 '<td>' + label + '</td>' +
+                                 '<td>' + priority + '</td>' +
                                  '<td>' + assignedTo +'</td>' +
+                                 '<td>' + label + '</td>' +
                                  '</tr>';
     }
 }
