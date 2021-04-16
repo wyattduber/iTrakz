@@ -13,7 +13,7 @@ var handlers = {
          - In each handler, call the database object (see dbTest for examples) to find all the info needed for that specific page
          - Send the page to the client with response.write()
          - Before ending the connection, also write() a new string containing a `<script>` tag with all the JS needed to
-           substitute the values obtained from the database into the HTML doc using `"document.getElementById('stuff').innerHTML = " + varFromDatabase;`
+           substitute the values obtained from the database into the HTML doc using `"document.getElementById('stuff').innerHTML = " + varFromDatabase;
          */
 
         fs.readFile(__dirname + "/web" + requestedFile, function(err, data) {
@@ -22,14 +22,57 @@ var handlers = {
 
                 response.writeHead(404);
                 response.end("<title>iTrakz Error: 404</title><h1 align='center'>404 - No noodles here!</h1>"); // 404 error if file not found
+                return
             } else {
                 console.log("Serving " + __dirname + "/web" + requestedFile); // Debug
             }
 
+            let jsFromHandler = ""; // This will be filled in by the appropriate request handler and added to the end of the page
+            switch(requestedFile.toString()) {
+                case "/index.html":
+                    jsFromHandler = handlers.homepage();
+                    break;
+                case "/tickets.html":
+                    jsFromHandler = handlers.tickets();
+                    break;
+            }
+
             response.writeHead(200);
-            response.write(data);
+            response.write(data + "\n" + jsFromHandler);
             response.end();
         })
+    },
+
+    homepage: function() {
+        return ""; // TODO pull stuff from database and insert as <script> tag here
+    },
+
+    tickets: function() {
+        const tickets = db.getOpenTickets();
+        let ticketsList = "<script>\n";
+        ticketsList += "let table = document.getElementById(\'ticket-main\');\n";
+
+        if (tickets.length < 1) {
+            ticketsList += "table.innerHTML = \'<h3>No Open Tickets</h3>\';\n";
+        }
+
+        ticketsList += "let row;\n";
+        for (let i = 0; i < tickets.length; i++) {
+            let responder = "None";
+            if (tickets[i].responder !== "null") {
+                responder = tickets[i].responder;
+            }
+            ticketsList += "row = table.insertRow(" + (i + 1) + ");\n"; // Used i + 1 because row 0 was our header
+            ticketsList += "row.insertCell(0).innerHTML = \"" + tickets[i].author + "\";\n";
+            ticketsList += "row.insertCell(1).innerHTML = \"" + tickets[i].id + "\";\n";
+            ticketsList += "row.insertCell(2).innerHTML = \"" + tickets[i].title + "\";\n";
+            ticketsList += "row.insertCell(3).innerHTML = \"" + tickets[i].description + "\";\n";
+            ticketsList += "row.insertCell(4).innerHTML = \"" + tickets[i].label + "\";\n";
+            ticketsList += "row.insertCell(5).innerHTML = \"" + responder + "\";\n";
+        }
+
+        ticketsList += "</script>\n";
+        return ticketsList;
     },
 
     dbTest: function(request, response) {
