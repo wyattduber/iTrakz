@@ -58,13 +58,17 @@ var handlers = {
 
         ticketsList += "let row;\n";
         for (let i = 0; i < tickets.length; i++) {
+            let responder = "None";
+            if (tickets[i].responder !== "null") {
+                responder = tickets[i].responder;
+            }
             ticketsList += "row = table.insertRow(" + (i + 1) + ");\n"; // Used i + 1 because row 0 was our header
-            ticketsList += "row.insertCell(0).innerHTML = \"" + tickets[i].requester + "\";\n";
+            ticketsList += "row.insertCell(0).innerHTML = \"" + tickets[i].author + "\";\n";
             ticketsList += "row.insertCell(1).innerHTML = \"" + tickets[i].id + "\";\n";
-            ticketsList += "row.insertCell(2).innerHTML = \"" + tickets[i].subject + "\";\n";
+            ticketsList += "row.insertCell(2).innerHTML = \"" + tickets[i].title + "\";\n";
             ticketsList += "row.insertCell(3).innerHTML = \"" + tickets[i].description + "\";\n";
-            ticketsList += "row.insertCell(4).innerHTML = \"" + tickets[i].priority + "\";\n";
-            ticketsList += "row.insertCell(5).innerHTML = \"" + tickets[i].responder + "\";\n";
+            ticketsList += "row.insertCell(4).innerHTML = \"" + tickets[i].label + "\";\n";
+            ticketsList += "row.insertCell(5).innerHTML = \"" + responder + "\";\n";
         }
 
         ticketsList += "</script>\n";
