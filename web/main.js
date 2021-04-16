@@ -27,7 +27,6 @@ function fetchTickets() {
                                  '<div class="col-2">' + assignedTo +'</div>' +
                                  '</div>';
     }
-
 }
 
 function fetchHistory() {
@@ -51,8 +50,6 @@ function fetchHistory() {
                         '<p>' + user + '</p>' + '</div>' +
                         '<hr />' + '</div>';
     }
-
-
 }
 
 function getTotals() {

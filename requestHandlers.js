@@ -13,7 +13,7 @@ var handlers = {
          - In each handler, call the database object (see dbTest for examples) to find all the info needed for that specific page
          - Send the page to the client with response.write()
          - Before ending the connection, also write() a new string containing a `<script>` tag with all the JS needed to
-           substitute the values obtained from the database into the HTML doc using `"document.getElementById('stuff').innerHTML = " + varFromDatabase;`
+           substitute the values obtained from the database into the HTML doc using `"document.getElementById('stuff').innerHTML = " + varFromDatabase;
          */
 
         fs.readFile(__dirname + "/web" + requestedFile, function(err, data) {
