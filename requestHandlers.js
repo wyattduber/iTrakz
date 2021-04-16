@@ -22,14 +22,33 @@ var handlers = {
 
                 response.writeHead(404);
                 response.end("<title>iTrakz Error: 404</title><h1 align='center'>404 - No noodles here!</h1>"); // 404 error if file not found
+                return
             } else {
                 console.log("Serving " + __dirname + "/web" + requestedFile); // Debug
             }
 
+            let jsFromHandler = ""; // This will be filled in by the appropriate request handler and added to the end of the page
+            switch(requestedFile.toString()) {
+                case "/index.html":
+                    jsFromHandler = handlers.homepage();
+                    break;
+                case "/tickets.html":
+                    jsFromHandler = handlers.tickets();
+                    break;
+            }
+
             response.writeHead(200);
-            response.write(data);
+            response.write(data + "\n" + jsFromHandler);
             response.end();
         })
+    },
+
+    homepage: function() {
+        return ""; // TODO pull stuff from database and insert as <script> tag here
+    },
+
+    tickets: function() {
+        return ""; // TODO pull stuff from database and insert as <script> tag here
     },
 
     dbTest: function(request, response) {
