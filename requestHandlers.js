@@ -48,7 +48,27 @@ var handlers = {
     },
 
     tickets: function() {
-        return ""; // TODO pull stuff from database and insert as <script> tag here
+        const tickets = db.getOpenTickets();
+        let ticketsList = "<script>\n";
+        ticketsList += "let table = document.getElementById(\'ticket-main\');\n";
+
+        if (tickets.length < 1) {
+            ticketsList += "table.innerHTML = \'<h3>No Open Tickets</h3>\';\n";
+        }
+
+        ticketsList += "let row;\n";
+        for (let i = 0; i < tickets.length; i++) {
+            ticketsList += "row = table.insertRow(" + (i + 1) + ");\n"; // Used i + 1 because row 0 was our header
+            ticketsList += "row.insertCell(0).innerHTML = \"" + tickets[i].requester + "\";\n";
+            ticketsList += "row.insertCell(1).innerHTML = \"" + tickets[i].id + "\";\n";
+            ticketsList += "row.insertCell(2).innerHTML = \"" + tickets[i].subject + "\";\n";
+            ticketsList += "row.insertCell(3).innerHTML = \"" + tickets[i].description + "\";\n";
+            ticketsList += "row.insertCell(4).innerHTML = \"" + tickets[i].priority + "\";\n";
+            ticketsList += "row.insertCell(5).innerHTML = \"" + tickets[i].responder + "\";\n";
+        }
+
+        ticketsList += "</script>\n";
+        return ticketsList;
     },
 
     dbTest: function(request, response) {
