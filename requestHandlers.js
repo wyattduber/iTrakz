@@ -53,7 +53,7 @@ var handlers = {
         ticketsList += "let table = document.getElementById(\'ticket-main\');\n";
 
         if (tickets.length < 1) {
-            ticketsList += "list.innerHTML = \'<h3>No Open Tickets</h3>\';\n";
+            ticketsList += "table.innerHTML = \'<h3>No Open Tickets</h3>\';\n";
         }
 
         ticketsList += "let row;\n";
