@@ -27,7 +27,7 @@ class database {
             'time DATETIME NOT NULL, ' +
             'description VARCHAR(100) NOT NULL,' +
             'content LONGTEXT NOT NULL, ' +
-            'label VARCHAR(20) NOT NULL, ' +
+            'status VARCHAR(20) NOT NULL, ' +
             'responder VARCHAR(50), ' +
             'category VARCHAR(20),' +
             'lastHistoryEvent INTEGER,' +
@@ -43,7 +43,7 @@ class database {
      * @returns {*}
      */
     checkNewOpenTickets() {
-        let stmt = db.prepare("SELECT * FROM tickets WHERE label='New'");
+        let stmt = db.prepare("SELECT * FROM tickets WHERE status='New'");
 
         return stmt.all().length;
     }
@@ -53,7 +53,7 @@ class database {
      * @returns {*}
      */
     checkInProgressTickets() {
-        let stmt = db.prepare("SELECT * FROM tickets WHERE label='In Progress'");
+        let stmt = db.prepare("SELECT * FROM tickets WHERE status='In Progress'");
 
         return stmt.all().length;
     }
@@ -125,12 +125,12 @@ class database {
 
     /**
      * Gets all tickets by id categorized by their respective labels
-     * @param label
+     * @param status
      * @returns {[]}
      */
-    getTicketsByLabel(label) {
-        let stmt = db.prepare("SELECT id FROM tickets WHERE label=?");
-        let ids = stmt.all(label);
+    getTicketsByStatus(status) {
+        let stmt = db.prepare("SELECT id FROM tickets WHERE status=?");
+        let ids = stmt.all(status);
         let returnArr = [];
 
         for (let i = 0; i < ids.length; i++) {
@@ -175,11 +175,11 @@ class database {
      * @param user
      * @returns {Generator<*, void, *>}
      */
-    updateLabel(newLabel, id, user) {
-        let stmt = db.prepare("UPDATE tickets SET label=? WHERE id=?");
-        stmt.run(newLabel, id);
+    updateStatus(newStatus, id, user) {
+        let stmt = db.prepare("UPDATE tickets SET status=? WHERE id=?");
+        stmt.run(newStatus, id);
 
-        this.createHistory("Label Change - " + newLabel, user, id);
+        this.createHistory("Label Change - " + newStatus, user, id);
     }
 
     /**
@@ -221,12 +221,12 @@ class database {
      * @param category
      * @returns {Generator<*, void, *>}
      */
-    createTicket(title, author, content, label, responder, category) {
+    createTicket(title, author, content, status, responder, category) {
         let description = content.substring(0, 49);
         description += '...';
 
-        let stmt = db.prepare("INSERT INTO tickets(title,author,time,description,content,label,responder,category) VALUES (?,?,datetime('now'),?,?,?,?,?)");
-        stmt.run(title, author, description, content, label, responder, category);
+        let stmt = db.prepare("INSERT INTO tickets(title,author,time,description,content,status,responder,category) VALUES (?,?,datetime('now'),?,?,?,?,?)");
+        stmt.run(title, author, description, content, status, responder, category);
 
         stmt = db.prepare("SELECT id FROM tickets WHERE title=? AND author=? AND content=? ORDER BY id DESC LIMIT 1");
         let idOfTicket = stmt.get(title, author, content)['id'];
