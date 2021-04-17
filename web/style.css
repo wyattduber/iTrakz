@@ -147,34 +147,24 @@ hr {
 /* ----------------------------------- */
 
 /* History Dashboard */
-.history-nav { 
+.history-nav tr {
     background: #D3E0EA;
     color: #333;
-    width: 100%;
-    height: 8%;
+    width: 100%; 
+    line-height: 70%;
 }
 
-.user { 
-    text-align: right;
-    margin-right: 4%;
+.history-info tr {
+    border-bottom: thin solid #777;
 }
 
-.date {
-    margin-left: 4%;
+.history-info tr:nth-of-type(even) {
+    background-color: #D3E0EA;
 }
 
-.hist-description {
-    text-align: left;
-}
-
-.history-info {
-    font-size: 16px;
-    color: #333;
-}
-
-.history-info hr { 
-    margin-left: 2%;
-    width: 96%;
+.history-info tr td {
+    font-size: .975rem;
+    word-wrap: break-word;
 }
 
 .history-dashboard hr { 

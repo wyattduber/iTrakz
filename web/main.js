@@ -41,14 +41,11 @@ function fetchHistory() {
         const user = history[i].user;
 
         //DONE
-        historyList += '<div class="row">' +
-                        '<div class="col-2 date">' +
-                        '<p>' + date + '</p>' + '</div>' +
-                        '<div class="col hist-description">' +
-                        '<p>' + description + '</p>' + '</div>' +
-                        '<div class="col-1 user">' +
-                        '<p>' + user + '</p>' + '</div>' +
-                        '<hr />' + '</div>';
+        historyList += '<tr>' +
+                        '<td>' + date + '</td>' +
+                        '<td>' + description + '</td>' +
+                        '<td>' + user + '</td>' +
+                        '</tr>';
     }
 }
 

@@ -85,21 +85,18 @@
             <div class="col-5 history-dashboard offset-1">
                 <h3>History</h3>
                 <hr>
-                <div class="history-nav">
-                    <div class="row">
-                        <div class="col-2 date">
-                            <p>Date</p>
-                        </div>
-                        <div class="col hist-description">
-                            <p>Description</p>
-                        </div>
-                        <div class="col-1 user">
-                            <p>User</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="history-info" id="historyList"></div>
+                <table class="table">
+                    <thead class="history-nav">
+                        <tr>
+                            <td>Date</td>
+                            <td>Description</td>
+                            <td>User</td>
+                        </tr>
+                    </thead>
+                    <tbody id="historyList" class="history-info">
+                        
+                    </tbody>
+                </table>
             </div>
             
         </div>
