@@ -235,7 +235,7 @@ class database {
     }
 
     getHistory() {
-        let stmt = db.prepare("SELECT * FROM history");
+        let stmt = db.prepare("SELECT * FROM history ORDER BY id DESC LIMIT 6");
 
         return stmt.all();
     }
