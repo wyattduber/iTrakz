@@ -99,10 +99,14 @@ var handlers = {
 
         ticketsList += "let row;\n";
         for (let i = 0; i < tickets.length; i++) {
-            let responder = "None";
+            let responder = "None", category = "None";
             if (tickets[i].responder !== null) {
                 responder = tickets[i].responder;
             }
+            if (tickets[i].category !== null) {
+                category = tickets[i].category;
+            }
+
             ticketsList += "row = table.insertRow(" + (i) + ");\n";
             ticketsList += "row.insertCell(0).innerHTML = \"" + tickets[i].author + "\";\n";
             ticketsList += "row.insertCell(1).innerHTML = \"" + tickets[i].id + "\";\n";
@@ -110,6 +114,7 @@ var handlers = {
             ticketsList += "row.insertCell(3).innerHTML = \"" + tickets[i].description + "\";\n";
             ticketsList += "row.insertCell(4).innerHTML = \"" + tickets[i].status + "\";\n";
             ticketsList += "row.insertCell(5).innerHTML = \"" + responder + "\";\n";
+            ticketsList += "row.insertCell(6).innerHTML = \"" + category + "\";\n";
         }
 
         ticketsList += "</script>\n";
