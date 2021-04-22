@@ -223,7 +223,7 @@ class database {
      */
     createTicket(title, author, content, status, responder, category) {
         let description = content.substring(0, 49);
-        if (description.length > 49) {
+        if (content.length > 49) {
             description += '...';
         }
 
