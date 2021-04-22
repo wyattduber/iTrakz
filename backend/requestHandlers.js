@@ -129,8 +129,8 @@ var handlers = {
             let formData = qs.parse(data.toString());
 
             db.createTicket(formData.subject, formData.requester, formData.description, "New", formData.responder, formData.category);
-            return "<script>console.log(\"Oh yeah, it's all coming together\");</script>";
-        })
+        });
+        return "<script>console.log(\"Oh yeah, it's all coming together\");</script>";
     },
 
     dbTest: function(request, response) {
