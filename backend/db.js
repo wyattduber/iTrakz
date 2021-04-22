@@ -63,7 +63,7 @@ class database {
      * @returns {*}
      */
     getOpenTickets() {
-        let stmt = db.prepare("SELECT * FROM tickets");
+        let stmt = db.prepare("SELECT * FROM tickets ORDER BY id DESC");
 
         return stmt.all();
     }
@@ -237,7 +237,7 @@ class database {
     }
 
     getHistory() {
-        let stmt = db.prepare("SELECT * FROM history ORDER BY id DESC LIMIT 6");
+        let stmt = db.prepare("SELECT * FROM history ORDER BY id DESC");
 
         return stmt.all();
     }
