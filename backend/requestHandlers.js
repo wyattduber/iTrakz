@@ -64,8 +64,7 @@ var handlers = {
             homePageCode += "table.innerHTML = \'<h3>No History Items</h3>\';\n";
         }
         homePageCode += "let row;\n";
-        for (let i = 0; i < 7; i++) {
-            if (i >= historyItems.length) break;
+        for (let i = 0; i < Math.min(7, historyItems.length); i++) {
             homePageCode += "row = historyList.insertRow(" + (i) + ");\n";
             homePageCode += "row.insertCell(0).innerHTML = \"" + historyItems[i].date + "\";\n";
             homePageCode += "row.insertCell(1).innerHTML = \"" + historyItems[i].description + "\";\n";
@@ -79,7 +78,7 @@ var handlers = {
 
         homePageCode += "dashTickList.innerHTML = \'\';\n";
 
-        for(let i = 0; i < 3; i++) {
+        for (let i = 0; i < Math.min(3, dashTickets.length); i++) {
             homePageCode += "dashTickList.innerHTML += \"<p class='main-title'>" + dashTickets[i].title + "</p><p class='description'>" + dashTickets[i].description + "</p><hr />\";\n";
         }
 
