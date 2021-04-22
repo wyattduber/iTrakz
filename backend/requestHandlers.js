@@ -1,11 +1,12 @@
 const fs = require('fs');
 const database = require('./db.js');
+const qs = require('querystring');
 
 const db = new database(); // Starts the database connection for the handlers to use
 
 var handlers = {
     default: function(request, response) { // This is where we will read the request, find the applicable file, and parse to insert anything from the database as needed
-        var requestedFile = request.url != "/" ? request.url : "/index.html"; // Sets default page to index.html
+        let requestedFile = request.url.split("?")[0] !== "/" ? request.url.split("?")[0] : "/index.html"; // Sets default page to index.html; handles URL arguments by only accepting the text to the left of the first "?" char
 
         /* FIXME:
          - Read the requestedFile and figure out which page it's asking for
@@ -18,7 +19,7 @@ var handlers = {
 
         fs.readFile(__dirname + "/../web" + requestedFile, function(err, data) {
             if (err) {
-                console.error("Attempted serving \"" + request.url + "\" with error \"" + err + "\"");
+                console.error("Attempted serving \"" + requestedFile + "\" with error \"" + err + "\"");
 
                 response.writeHead(404);
                 response.end("<title>iTrakz Error: 404</title><h1 align='center'>404 - No noodles here!</h1>"); // 404 error if file not found
@@ -28,12 +29,15 @@ var handlers = {
             }
 
             let jsFromHandler = ""; // This will be filled in by the appropriate request handler and added to the end of the page
-            switch(requestedFile.toString()) {
+            switch(requestedFile) {
                 case "/index.html":
                     jsFromHandler = handlers.homepage();
                     break;
                 case "/tickets.html":
                     jsFromHandler = handlers.tickets();
+                    break;
+                case "/submit_ticket.html":
+                    jsFromHandler = handlers.submit_ticket(request); // Must forward POST data so that the handler can insert it into the database
                     break;
             }
 
@@ -118,6 +122,15 @@ var handlers = {
 
         ticketsList += "</script>\n";
         return ticketsList;
+    },
+
+    submit_ticket: function(request) {
+        request.on("data", function(data) {
+            let formData = qs.parse(data.toString());
+
+            db.createTicket(formData.subject, formData.requester, formData.description, "New", formData.responder, formData.category);
+            return "<script>console.log(\"Oh yeah, it's all coming together\");</script>";
+        })
     },
 
     dbTest: function(request, response) {

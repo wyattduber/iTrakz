@@ -223,7 +223,9 @@ class database {
      */
     createTicket(title, author, content, status, responder, category) {
         let description = content.substring(0, 49);
-        description += '...';
+        if (description.length > 49) {
+            description += '...';
+        }
 
         let stmt = db.prepare("INSERT INTO tickets(title,author,time,description,content,status,responder,category) VALUES (?,?,datetime('now'),?,?,?,?,?)");
         stmt.run(title, author, description, content, status, responder, category);

@@ -137,9 +137,12 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form id='ticketForm' action="/submit_ticket">
-                        <label for="requester" class="form-label">Requester: </label>
+                    <form id='ticketForm' action="/submit_ticket.html" method="post">
+                        <label for="requester" class="form-label">Your name: </label>
                         <input type="text" id="requester" name="requester" class="form-control" required>
+
+                        <label for="responder" class="form-label">Assigned to: </label>
+                        <input type="text" id="responder" name="responder" class="form-control" required>
 
                         <label for="subject" class="form-label">Subject: </label>
                         <input type="text" id="subject" name="subject" class="form-control" required>
@@ -147,19 +150,12 @@
                         <label for="description" class="form-label">Description: </label>
                         <textarea name="description" id="description" cols="20" rows="1" class="form-control" required></textarea>
 
-                        <label for="priority" class="form-label">Priority: </label>
-                        <select id="priority" name="priority" class="form-control" required>
-                            <option value="low">Low</option>
-                            <option value="medium">Medium</option>
-                            <option value="high">High</option>
+                        <label for="category" class="form-label">Category: </label>
+                        <select id="category" name="category" class="form-control" required>
+                            <option value="bug">Bug</option>
+                            <option value="hack">Security Vulnerability</option>
+                            <option value="other">Other</option>
                         </select>
-
-                        <label for="assigned-to" class="form-label">Assigned to: </label>
-                        <input type="text" id="assigned-to" name="assigned-to" class="form-control" required>
-
-                        <!-- Keep? -->
-                        <label for="attachment" class="form-label">Attachments: </label>
-                        <input type="file" id="attachment" name="attachment" class="form-control">
 
                         <div class="modal-footer">
                             <button type="submit" class="btn btn-primary">Submit Ticket</button>
