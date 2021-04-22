@@ -1,5 +1,5 @@
 const fs = require('fs');
-const database = require('./sqlite/db.js');
+const database = require('./db.js');
 
 const db = new database(); // Starts the database connection for the handlers to use
 
@@ -16,7 +16,7 @@ var handlers = {
            substitute the values obtained from the database into the HTML doc using `"document.getElementById('stuff').innerHTML = " + varFromDatabase;
          */
 
-        fs.readFile(__dirname + "/web" + requestedFile, function(err, data) {
+        fs.readFile(__dirname + "/../web" + requestedFile, function(err, data) {
             if (err) {
                 console.error("Attempted serving \"" + request.url + "\" with error \"" + err + "\"");
 

@@ -1,6 +1,6 @@
 /* Import libraries */
 const http = require('http'); // Node HTTP handler
-const handlers = require('./backend/requestHandlers.js'); // Imports functions from requestHandlers.js
+const handlers = require('./requestHandlers.js'); // Imports functions from requestHandlers.js
 
 /* Start server */
 var server = http.createServer(handlers.default); // Sends incoming connections to requestHandlers.js
