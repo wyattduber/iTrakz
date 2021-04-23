@@ -139,21 +139,42 @@ var handlers = {
     ticket: function(request) {
         let js = "<script>\n";
 
-        let dropdownIndices = {};
-        dropdownIndices["bug"] = 0;
-        dropdownIndices["hack"] = 1;
-        dropdownIndices["other"] = 2;
-        dropdownIndices[null] = 2; // When the category is blank, set to null
+        let categoryIndices = {};
+        categoryIndices["bug"] = 0;
+        categoryIndices["hack"] = 1;
+        categoryIndices["other"] = 2;
+        categoryIndices[null] = 2; // When the category is blank, set to other
+
+        let statusIndices = {};
+        statusIndices["New"] = 0;
+        statusIndices["In Progress"] = 1;
+        statusIndices["Resolved"] = 2;
 
         let ticket = db.getTicketById(qs.parse(request.url.split("?")[1]).id);
+
+        if (ticket == null) {
+            return "<h1 style=\"color: #000000; font-family: 'Times New Roman'\">You've requested a ticket that does not exist.</h1>";
+        }
+
         js += "document.getElementById('author').innerText = '"+sanitize(ticket.author)+"';\n";
         js += "document.getElementById('responder').innerText = '"+sanitize(ticket.responder)+"';\n";
         js += "document.getElementById('subject').innerText = '"+sanitize(ticket.title)+"';\n";
         js += "document.getElementById('description').innerText = '"+sanitize(ticket.content)+"';\n";
-        js += "document.getElementById('category').options["+dropdownIndices[ticket.category]+"].selected = true;\n";
+        js += "document.getElementById('category').options["+categoryIndices[ticket.category]+"].selected = true;\n";
+        js += "document.getElementById('status').options["+statusIndices[ticket.status]+"].selected = true;\n";
 
         js += "</script>\n";
         return js;
+    },
+
+    update_ticket: function(request) {
+        request.on("data", function(data) {
+            let formData = qs.parse(data.toString());
+
+            // FIXME: Check to see which fields were changed and update database accordingly
+        });
+
+        return "<script>console.log(\"Oh yeah, it's all coming together\");</script>";
     },
 
     dbTest: function(request, response) {

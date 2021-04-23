@@ -85,7 +85,20 @@
                 <option value="other">Other</option>
             </select>
             <br>
-            <button type="submit" class="btn btn-primary">Save edits</button>
+            <label for="status" class="form-label">Status: </label>
+            <select id="status" name="status" class="form-control" required>
+                <option value="new">New</option>
+                <option value="prog">In Progress</option>
+                <option value="resolved">Resolved</option>
+            </select>
+            <br>
+            <br>
+            <br>
+            <label for="editor" class="form-label">Editor's name:</label>
+            <textarea name="editor" id="editor" class="form-control" required></textarea>
+            <br>
+            <button style="display:inline" type="submit" class="btn btn-primary">Save edits</button>
+            <button style="display:inline" onclick="window.location.href='/tickets.html';" class="btn btn-secondary">Don't save</button>
         </form>
     </div>
 
