@@ -153,9 +153,9 @@ var handlers = {
         let js = "<script>\n";
 
         let categoryIndices = {};
-        categoryIndices["bug"] = 0;
-        categoryIndices["hack"] = 1;
-        categoryIndices["other"] = 2;
+        categoryIndices["Bug"] = 0;
+        categoryIndices["Hack"] = 1;
+        categoryIndices["Other"] = 2;
         categoryIndices[null] = 2; // When the category is blank, set to other
 
         let statusIndices = {};
@@ -169,13 +169,13 @@ var handlers = {
             return "<h1 style=\"color: #000000; font-family: 'Times New Roman'\">You've requested a ticket that does not exist.</h1>";
         }
 
-        let responder = None;
+        let responder = "None";
         if (ticket.responder != null) {
-            responder = ticket.responder;
+            responder = sanitize(ticket.responder);
         }
 
         js += "document.getElementById('author').innerText = '"+sanitize(ticket.author)+"';\n";
-        js += "document.getElementById('responder').innerText = '"+sanitize(responder)+"';\n";
+        js += "document.getElementById('responder').innerText = '"+responder+"';\n";
         js += "document.getElementById('subject').innerText = '"+sanitize(ticket.title)+"';\n";
         js += "document.getElementById('description').innerText = '"+sanitize(ticket.content)+"';\n";
         js += "document.getElementById('category').options["+categoryIndices[ticket.category]+"].selected = true;\n";
