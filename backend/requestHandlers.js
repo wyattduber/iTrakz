@@ -42,6 +42,9 @@ var handlers = {
                 case "/ticket.html":
                     jsFromHandler = handlers.ticket(request);
                     break;
+                case "/update_ticket.html":
+                    jsFromHandler = handlers.update_ticket(request);
+                    break;
             }
 
             response.writeHead(200);
@@ -166,8 +169,13 @@ var handlers = {
             return "<h1 style=\"color: #000000; font-family: 'Times New Roman'\">You've requested a ticket that does not exist.</h1>";
         }
 
+        let responder = None;
+        if (ticket.responder != null) {
+            responder = ticket.responder;
+        }
+
         js += "document.getElementById('author').innerText = '"+sanitize(ticket.author)+"';\n";
-        js += "document.getElementById('responder').innerText = '"+sanitize(ticket.responder)+"';\n";
+        js += "document.getElementById('responder').innerText = '"+sanitize(responder)+"';\n";
         js += "document.getElementById('subject').innerText = '"+sanitize(ticket.title)+"';\n";
         js += "document.getElementById('description').innerText = '"+sanitize(ticket.content)+"';\n";
         js += "document.getElementById('category').options["+categoryIndices[ticket.category]+"].selected = true;\n";
@@ -180,8 +188,15 @@ var handlers = {
     update_ticket: function(request) {
         request.on("data", function(data) {
             let formData = qs.parse(data.toString());
+            let id = qs.parse(request.url.split("?")[1]).id;
 
-            // FIXME: Check to see which fields were changed and update database accordingly
+            if (formData.subject !== db.getTicketBit(id, "subject")) db.updateTitle(id, formData.subject);
+            if (formData.content !== db.getTicketBit(id, "content")) db.updateContent(id, formData.content);
+            if (formData.category !== db.getTicketBit(id, "category")) db.updateCategory(id, formData.category);
+            if (formData.status !== db.getTicketBit(id, "status")) db.updateStatus(id, formData.status);
+            if (formData.requester !== db.getTicketBit(id, "author")) db.updateAuthor(id, formData.requester);
+            if (formData.responder !== db.getTicketBit(id, "responder")) db.updateResponder(id, formData.responder);
+
         });
 
         return "<script>console.log(\"Oh yeah, it's all coming together\");</script>";
