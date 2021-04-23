@@ -39,6 +39,9 @@ var handlers = {
                 case "/submit_ticket.html":
                     jsFromHandler = handlers.submit_ticket(request); // Must forward POST data so that the handler can insert it into the database
                     break;
+                case "/ticket.html":
+                    jsFromHandler = handlers.ticket(request);
+                    break;
             }
 
             response.writeHead(200);
@@ -70,9 +73,9 @@ var handlers = {
         homePageCode += "let row;\n";
         for (let i = 0; i < Math.min(7, historyItems.length); i++) {
             homePageCode += "row = historyList.insertRow(" + (i) + ");\n";
-            homePageCode += "row.insertCell(0).innerHTML = \"" + historyItems[i].date + "\";\n";
-            homePageCode += "row.insertCell(1).innerHTML = \"" + historyItems[i].description + "\";\n";
-            homePageCode += "row.insertCell(2).innerHTML = \"" + historyItems[i].user + "\";\n";
+            homePageCode += "row.insertCell(0).innerHTML = \"" + sanitize(historyItems[i].date) + "\";\n";
+            homePageCode += "row.insertCell(1).innerHTML = \"" + sanitize(historyItems[i].description) + "\";\n";
+            homePageCode += "row.insertCell(2).innerHTML = \"" + sanitize(historyItems[i].user) + "\";\n";
         }
 
         //Main Support Tickets Module
@@ -111,13 +114,13 @@ var handlers = {
             }
 
             ticketsList += "row = table.insertRow(" + (i) + ");\n";
-            ticketsList += "row.insertCell(0).innerHTML = \"" + tickets[i].author + "\";\n";
-            ticketsList += "row.insertCell(1).innerHTML = \"" + tickets[i].id + "\";\n";
-            ticketsList += "row.insertCell(2).innerHTML = \"" + tickets[i].title + "\";\n";
-            ticketsList += "row.insertCell(3).innerHTML = \"" + tickets[i].description + "\";\n";
-            ticketsList += "row.insertCell(4).innerHTML = \"" + tickets[i].status + "\";\n";
-            ticketsList += "row.insertCell(5).innerHTML = \"" + responder + "\";\n";
-            ticketsList += "row.insertCell(6).innerHTML = \"" + category + "\";\n";
+            ticketsList += "row.insertCell(0).innerHTML = \"" + sanitize(tickets[i].author) + "\";\n";
+            ticketsList += "row.insertCell(1).innerHTML = \"" + sanitize(tickets[i].id) + "\";\n";
+            ticketsList += "row.insertCell(2).innerHTML = \"" + sanitize(tickets[i].title) + "\";\n";
+            ticketsList += "row.insertCell(3).innerHTML = \"" + sanitize(tickets[i].description) + "\";\n";
+            ticketsList += "row.insertCell(4).innerHTML = \"" + sanitize(tickets[i].status) + "\";\n";
+            ticketsList += "row.insertCell(5).innerHTML = \"" + sanitize(responder) + "\";\n";
+            ticketsList += "row.insertCell(6).innerHTML = \"" + sanitize(category) + "\";\n";
         }
 
         ticketsList += "</script>\n";
@@ -131,6 +134,26 @@ var handlers = {
             db.createTicket(formData.subject, formData.requester, formData.description, "New", formData.responder, formData.category);
         });
         return "<script>console.log(\"Oh yeah, it's all coming together\");</script>";
+    },
+
+    ticket: function(request) {
+        let js = "<script>\n";
+
+        let dropdownIndices = {};
+        dropdownIndices["bug"] = 0;
+        dropdownIndices["hack"] = 1;
+        dropdownIndices["other"] = 2;
+        dropdownIndices[null] = 2; // When the category is blank, set to null
+
+        let ticket = db.getTicketById(qs.parse(request.url.split("?")[1]).id);
+        js += "document.getElementById('author').innerText = '"+sanitize(ticket.author)+"';\n";
+        js += "document.getElementById('responder').innerText = '"+sanitize(ticket.responder)+"';\n";
+        js += "document.getElementById('subject').innerText = '"+sanitize(ticket.title)+"';\n";
+        js += "document.getElementById('description').innerText = '"+sanitize(ticket.content)+"';\n";
+        js += "document.getElementById('category').options["+dropdownIndices[ticket.category]+"].selected = true;\n";
+
+        js += "</script>\n";
+        return js;
     },
 
     dbTest: function(request, response) {
@@ -159,6 +182,19 @@ var handlers = {
 
         response.writeHead(200);
         response.end("oh yuh, it worked; see console");
+    }
+}
+
+/**
+ * Replaces single quotes with \' and double quotes with \\", for use in preventing XSS
+ * @param text
+ * @returns {string|*}
+ */
+function sanitize(text) {
+    if (typeof text == "string") {
+        return text.split("'").join("\\'").split("\"").join("\\\"");
+    } else {
+        return text;
     }
 }
 
