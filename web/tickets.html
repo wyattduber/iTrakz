@@ -69,7 +69,7 @@
     </div>
 
     <div class="table-responsive">
-        <table class="table table-striped container ticket-main">
+        <table class="table table-striped container ticket-main" id="ticket-table">
             <thead>
                 <tr>
                     <th onclick="sortTable(0)">Requester</th>
@@ -92,7 +92,7 @@
     <script>
         function sortTable(n) {
             var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
-            table = document.getElementById("myTable2");
+            table = document.getElementById("ticket-table");
             switching = true;
             dir = "asc";
             while (switching) {
