@@ -137,6 +137,15 @@ var handlers = {
         return "<script>console.log(\"Oh yeah, it's all coming together\");</script>";
     },
 
+    /*submit_login: function(request) {
+        request.on("data", function(data) {
+            let formData = qs.parse(data.toString());
+
+            db.createAccount(formData.username, formData.password);
+        });
+        return "<script>console.log(\"Oh yeah, it's all coming together\");</script>";
+    },*/
+
     ticket: function(request) {
         let js = "<script>\n";
 

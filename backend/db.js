@@ -35,6 +35,12 @@ class database {
             ');');
         stmt.run();
 
+        /*stmt = db.prepare('CREATE TABLE IF NOT EXISTS accounts(' +
+            'username VARCHAR(200) NOT NULL, ' +
+            'password VARCHAR(200) NOT NULL, ' +
+            ');');
+        stmt.run();*/
+
         console.log("Opened database");
     }
 
@@ -235,6 +241,19 @@ class database {
 
         this.createHistory("Opened Ticket", author, idOfTicket);
     }
+
+    /*createAccount(username, password) {
+        int saltSize = 256, iterations = 1000, hashSize = 20;
+
+        var deriveBytes = new Rfc2898DeriveBytes(password, saltSize, iterations);
+        byte[] salt = deriveBytes.Salt;
+        byte[] hash = deriveBytes.GetBytes(hashSize);
+
+        password = Convert.ToBase64String(hash);
+
+        let stmt = db.prepare("INSERT INTO accounts(username, password) VALUES (?, ?)");
+        stmt.run(username, password);
+    }*/
 
     getHistory() {
         let stmt = db.prepare("SELECT * FROM history ORDER BY id DESC");
