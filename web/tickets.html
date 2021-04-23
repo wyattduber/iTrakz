@@ -72,14 +72,14 @@
         <table class="table table-striped container ticket-main" id="ticket-table">
             <thead>
                 <tr>
-                    <th onclick="sortTable(0)">Requester</th>
-                    <th onclick="sortTable(1)">ID</th>
-                    <th onclick="sortTable(2)">Subject</th>
-                    <th onclick="sortTable(3)">Description</th>
-                    <th onclick="sortTable(4)">Status</th>
-                    <th onclick="sortTable(5)">Assigned To</th>
-                    <th onclick="sortTable(6)">Category</th>
-                    <th onclick="sortTable(7)">View Ticket</th>
+                    <th id="0" onclick="sortTable(0, this.id)">Requester</th>
+                    <th id="1" onclick="sortTable(1, this.id)">ID</th>
+                    <th id="2" onclick="sortTable(2, this.id)">Subject</th>
+                    <th id="3" onclick="sortTable(3, this.id)">Description</th>
+                    <th id="4" onclick="sortTable(4, this.id)">Status</th>
+                    <th id="5" onclick="sortTable(5, this.id)">Assigned To</th>
+                    <th id="6" onclick="sortTable(6, this.id)">Category</th>
+                    <th id="7" onclick="sortTable(7, this.id,)">View Ticket</th>
                 </tr>
             </thead>
             <tbody id="ticketList">
@@ -89,12 +89,18 @@
         </table>
     </div>
 
-    <script>
-        function sortTable(n) {
+    <script type="text/javascript">
+        function sortTable(n, clicked_id) {
             var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
             table = document.getElementById("ticket-table");
             switching = true;
             dir = "asc";
+
+            if (document.getElementById(clicked_id).style.color == "white")
+                document.getElementById(clicked_id).style.color = "blue";
+            else
+                document.getElementById(clicked_id).style.color = "white";
+
             while (switching) {
                 switching = false;
                 rows = table.rows;
@@ -117,7 +123,7 @@
                 if (shouldSwitch) {
                     rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
                     switching = true;
-                    switchcount ++;
+                    switchcount++;
                 } else {
                     if (switchcount == 0 && dir == "asc") {
                         dir = "desc";
