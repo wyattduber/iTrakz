@@ -235,7 +235,7 @@ hr {
 /* ----------------------------------- */
 
 /* For smaller laptops */
-@media (max-width: 1400px) {
+@media (max-width: 1450px) {
     .btn {
         font-size: .9rem;
     }
