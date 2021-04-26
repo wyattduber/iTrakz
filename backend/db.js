@@ -35,6 +35,8 @@ class database {
             ');');
         stmt.run();
 
+        // Creating a database to hold the accounts
+        // Does this work? Do we want to try it?
         /*stmt = db.prepare('CREATE TABLE IF NOT EXISTS accounts(' +
             'username VARCHAR(200) NOT NULL, ' +
             'password VARCHAR(200) NOT NULL, ' +
@@ -255,6 +257,8 @@ class database {
         this.createHistory("Opened Ticket", author, idOfTicket);
     }
 
+    // Creating an account in the database (and salting and hashing password (?))
+    // Does this work? Do we want to try it?
     /*createAccount(username, password) {
         int saltSize = 256, iterations = 1000, hashSize = 20;
 
