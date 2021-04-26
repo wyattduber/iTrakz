@@ -140,6 +140,8 @@ var handlers = {
         return "<script>console.log(\"Oh yeah, it's all coming together\");</script>";
     },
 
+    // JS to call db function on login form submission
+    // Does this work? Do we want to try it?
     /*submit_login: function(request) {
         request.on("data", function(data) {
             let formData = qs.parse(data.toString());
