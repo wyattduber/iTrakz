@@ -211,8 +211,16 @@ class database {
      * @returns {Generator<*, void, *>}
      */
     updateContent(newContent, id, user) {
+        let description = content.substring(0, 49);
+        if (content.length > 49) {
+            description += '...';
+        }
+
         let stmt = db.prepare("UPDATE tickets SET content=? WHERE id=?");
         stmt.run(newContent, id);
+
+        stmt = db.prepare("UPDATE tickets SET description=? WHERE id=?");
+        stmt.run(description, id);
 
         this.createHistory("Content Edit", user, id);
     }
