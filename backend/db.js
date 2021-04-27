@@ -232,6 +232,18 @@ class database {
     }
 
     /**
+     * Deletes the selected ticket by id
+     * @param id
+     * @param user
+     */
+    deleteTicket(id, user) {
+        let stmt = db.prepare("DELETE FROM tickets WHERE id=?");
+        stmt.run(id);
+
+        this.createHistory("Deleted Ticket " + id, user);
+    }
+
+    /**
      * Creates a new ticket row in the database upon the creation of a ticket on the website
      * @param title
      * @param author
