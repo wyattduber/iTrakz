@@ -200,7 +200,12 @@ class database {
         let stmt = db.prepare("UPDATE tickets SET status=? WHERE id=?");
         stmt.run(newStatus, id);
 
-        this.createHistory("Label Change: " + newStatus, user, id);
+        //Sanitize the status changes for history menu
+        if (newStatus === "prog") newStatus = "In Progress";
+        else if (newStatus === "new") newStatus = "New";
+        else if (newStatus === "resolved") newStatus = "Resolved";
+
+        this.createHistory("Status Change: " + newStatus, user, id);
     }
 
     /**
