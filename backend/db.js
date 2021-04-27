@@ -211,8 +211,8 @@ class database {
      * @returns {Generator<*, void, *>}
      */
     updateContent(newContent, id, user) {
-        let description = content.substring(0, 49);
-        if (content.length > 49) {
+        let description = newContent.substring(0, 49);
+        if (newContent.length > 49) {
             description += '...';
         }
 
