@@ -30,17 +30,18 @@
                 <h1>iTrakz</h1>
             </span>
             <form class="d-flex">
-                <input type="search" class="form-control me-2" placeholder="Search">
+                <input id="search" type="search" class="form-control me-2" placeholder="Search">
                 <svg xmlns="http://www.w3.org/2000/svg" class="bi bi-search" viewBox="0 0 16 16">
                     <path
                         d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                    <rect class="btn btn-primary" width="20px" height="20px" fill-opacity="0"<!--onClick="filterSearchTable()"-->/>
                 </svg>
             </form>
 
             <button class="btn btn-primary nav-ticket" data-bs-toggle="modal" data-bs-target="#myModal">
                 Create Ticket
             </button>
-
+            <!-- Login Pop-Up -->
             <!-- <svg xmlns="http://www.w3.org/2000/svg" class="bi bi-person-circle" viewBox="0 0 16 16">
                 <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
                 <path fill-rule="evenodd"
@@ -72,14 +73,14 @@
         <table class="table table-striped container ticket-main" id="ticket-table">
             <thead>
                 <tr>
-                    <th id="0" onclick="sortTable(0, this.id)">Requester</th>
-                    <th id="1" onclick="sortTable(1, this.id)">ID</th>
-                    <th id="2" onclick="sortTable(2, this.id)">Subject</th>
-                    <th id="3" onclick="sortTable(3, this.id)">Description</th>
-                    <th id="4" onclick="sortTable(4, this.id)">Status</th>
-                    <th id="5" onclick="sortTable(5, this.id)">Assigned To</th>
-                    <th id="6" onclick="sortTable(6, this.id)">Category</th>
-                    <th id="7" onclick="sortTable(7, this.id,)">View Ticket</th>
+                    <th id="0" onclick="sortTable(0)">Requester</th>
+                    <th id="1" onclick="sortTable(1)">ID</th>
+                    <th id="2" onclick="sortTable(2)">Subject</th>
+                    <th id="3" onclick="sortTable(3)">Description</th>
+                    <th id="4" onclick="sortTable(4)">Status</th>
+                    <th id="5" onclick="sortTable(5)">Assigned To</th>
+                    <th id="6" onclick="sortTable(6)">Category</th>
+                    <th id="7" onclick="sortTable(7)">View Ticket</th>
                 </tr>
             </thead>
             <tbody id="ticketList">
@@ -90,16 +91,17 @@
     </div>
 
     <script type="text/javascript">
-        function sortTable(n, clicked_id) {
-            var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+        function sortTable(n) {
+            var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0, is_selected;
             table = document.getElementById("ticket-table");
             switching = true;
             dir = "asc";
 
-            if (document.getElementById(clicked_id).style.backgroundColor != "rgb(119, 119, 119)")
-                document.getElementById(clicked_id).style.backgroundColor = "rgb(119, 119, 119)";
-            else
-                document.getElementById(clicked_id).style.backgroundColor = "#276678";
+            for (i = 0; i < 8; i++) {
+                document.getElementById(i).style.backgroundColor = "#276678";    //White
+            }
+
+            document.getElementById(n).style.backgroundColor = "rgb(119, 119, 119)";               // Gray
 
             while (switching) {
                 switching = false;
@@ -132,6 +134,29 @@
                 }
             }
         }
+
+        // TODO
+        /*function filterSearchTable() {
+            // Declare variables
+            var input, filter, table, rows, td, i, txtValue;
+            input = document.getElementById("search");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("ticket-table");
+
+            // Loop through all table rows, and hide those who don't match the search query
+            rows = table.rows;
+            for (i = 1; i < (rows.length - 1); i++) {
+                td = rows[i].getElementsByTagName("TD")[0];
+                if (td) {
+                    txtValue = td.textContent || td.innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        rows[i].style.display = "";
+                    } else {
+                        rows[i].style.display = "none";
+                    }
+                }
+            }
+        }*/
     </script>
 
     <!-- Create Ticket popup -->
