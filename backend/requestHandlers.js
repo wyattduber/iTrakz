@@ -89,7 +89,7 @@ var handlers = {
         homePageCode += "dashTickList.innerHTML = \'\';\n";
 
         for (let i = 0; i < Math.min(3, dashTickets.length); i++) {
-            homePageCode += "dashTickList.innerHTML += \"<p class='main-title'>" + dashTickets[i].title + "</p><p class='description'>" + dashTickets[i].description + "</p><hr />\";\n";
+            homePageCode += "dashTickList.innerHTML += \"<p class='main-title'>" + sanitize(dashTickets[i].title) + "</p><p class='description'>" + sanitize(dashTickets[i].description) + "</p><hr />\";\n";
         }
 
 
@@ -106,6 +106,16 @@ var handlers = {
             ticketsList += "table.innerHTML = \'<h3>No Open Tickets</h3>\';\n";
         }
 
+        let categoryIndices = {};
+        categoryIndices["bug"] = "Bug";
+        categoryIndices["hack"] = "Security Vulnerability";
+        categoryIndices["other"] = "Other";
+
+        let statusIndices = {};
+        statusIndices["new"] = "New";
+        statusIndices["prog"] = "In Progress";
+        statusIndices["resolved"] = "Resolved";
+
         ticketsList += "let row;\n";
         for (let i = 0; i < tickets.length; i++) {
             let responder = "None", category = "None";
@@ -121,9 +131,9 @@ var handlers = {
             ticketsList += "row.insertCell(1).innerHTML = \"" + sanitize(tickets[i].id) + "\";\n";
             ticketsList += "row.insertCell(2).innerHTML = \"" + sanitize(tickets[i].title) + "\";\n";
             ticketsList += "row.insertCell(3).innerHTML = \"" + sanitize(tickets[i].description) + "\";\n";
-            ticketsList += "row.insertCell(4).innerHTML = \"" + sanitize(tickets[i].status) + "\";\n";
+            ticketsList += "row.insertCell(4).innerHTML = \"" + statusIndices[tickets[i].status] + "\";\n";
             ticketsList += "row.insertCell(5).innerHTML = \"" + sanitize(responder) + "\";\n";
-            ticketsList += "row.insertCell(6).innerHTML = \"" + sanitize(category) + "\";\n";
+            ticketsList += "row.insertCell(6).innerHTML = \"" + categoryIndices[category] + "\";\n";
             ticketsList += "row.insertCell(7).innerHTML = \"<button class='btn btn-primary ticket-btn' onclick=\\\"window.location.href='/ticket.html?id=" + tickets[i].id + "'\\\">Open</button>\";\n";
         }
 
@@ -135,7 +145,7 @@ var handlers = {
         request.on("data", function(data) {
             let formData = qs.parse(data.toString());
 
-            db.createTicket(formData.subject, formData.requester, formData.description, "New", formData.responder, formData.category);
+            db.createTicket(formData.subject, formData.requester, formData.description, "new", formData.responder, formData.category);
         });
         return "<script>console.log(\"Oh yeah, it's all coming together\");</script>";
     },
