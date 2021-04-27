@@ -263,4 +263,8 @@ hr {
     .ticket-main {
     margin: 25px 200px;
     }
+
+    #ticket {
+        margin: 25px 200px;
+    }
 }
