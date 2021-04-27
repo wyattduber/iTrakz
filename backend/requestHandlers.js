@@ -251,7 +251,7 @@ var handlers = {
  */
 function sanitize(text) {
     if (typeof text == "string") {
-        return text.split("'").join("\\'").split("\"").join("\\\"");
+        return text.split("'").join("\\'").split("\"").join("\\\"").split("\n").join("\\n").split("\r").join("");
     } else {
         return text;
     }
