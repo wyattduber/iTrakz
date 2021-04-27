@@ -252,7 +252,6 @@ hr {
     .circle {
     width: 190px;
     height: 181px;
-    margin-left: 4%;
     font-size: 72px;
     }
 
@@ -262,5 +261,9 @@ hr {
 
     .ticket-main {
     margin: 25px 200px;
+    }
+
+    #ticket {
+        margin: 25px 200px;
     }
 }
