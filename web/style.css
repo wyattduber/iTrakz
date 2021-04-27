@@ -266,4 +266,8 @@ hr {
     #ticket {
         margin: 25px 200px;
     }
+
+    .ticket-overflow {
+        overflow-x: hidden;
+    }
 }
