@@ -51,7 +51,7 @@ class database {
      * @returns {*}
      */
     checkNewOpenTickets() {
-        let stmt = db.prepare("SELECT * FROM tickets WHERE status='New'");
+        let stmt = db.prepare("SELECT * FROM tickets WHERE status='new'");
 
         return stmt.all().length;
     }
@@ -61,7 +61,7 @@ class database {
      * @returns {*}
      */
     checkInProgressTickets() {
-        let stmt = db.prepare("SELECT * FROM tickets WHERE status='In Progress'");
+        let stmt = db.prepare("SELECT * FROM tickets WHERE status='prog'");
 
         return stmt.all().length;
     }
