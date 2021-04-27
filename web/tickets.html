@@ -147,6 +147,7 @@
                     txtValue = td.innerText;
                     if (txtValue.toUpperCase().indexOf(filter) > -1) {
                         rows[i].style.display = "";
+                        break;
                     } else {
                         rows[i].style.display = "none";
                     }
