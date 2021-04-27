@@ -141,7 +141,7 @@
             table = document.getElementById("ticket-table");
 
             rows = table.rows;
-            for (i = 1; i < (rows.length - 1); i++) {
+            for (i = 1; i < rows.length; i++) {
                 for (j = 0; j < 8; j++) {
                     td = rows[i].getElementsByTagName("TD")[j];
                     txtValue = td.innerText;
