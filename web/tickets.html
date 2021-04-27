@@ -96,10 +96,10 @@
             switching = true;
             dir = "asc";
 
-            if (document.getElementById(clicked_id).style.color == "white")
-                document.getElementById(clicked_id).style.color = "blue";
+            if (document.getElementById(clicked_id).style.backgroundColor != "rgb(119, 119, 119)")
+                document.getElementById(clicked_id).style.backgroundColor = "rgb(119, 119, 119)";
             else
-                document.getElementById(clicked_id).style.color = "white";
+                document.getElementById(clicked_id).style.backgroundColor = "#276678";
 
             while (switching) {
                 switching = false;
@@ -167,7 +167,7 @@
                             </select>
 
                             <div class="modal-footer">
-                                <button type="submit" class="btn btn-primary">Submit Ticket</button>
+                                <button type="submit" class="btn btn-primary ticket-btn">Submit Ticket</button>
                             </div>
                         </form>
                     </div>
@@ -196,7 +196,7 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary">Login</button>
+                    <button type="submit" class="btn btn-primary ticket-btn">Login</button>
                 </div>
             </div>
         </div>
