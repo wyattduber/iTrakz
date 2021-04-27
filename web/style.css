@@ -238,6 +238,13 @@ hr {
 
 
 /* ----------------------------------- */
+/* For Zach's laptop */
+@media (max-width: 1910px) {
+    .btn {
+        font-size: .9rem;
+    }
+}
+
 
 /* For smaller laptops */
 @media (max-width: 1540px) {
