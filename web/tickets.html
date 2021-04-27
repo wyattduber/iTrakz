@@ -100,7 +100,6 @@
             for (i = 0; i < 8; i++) {
                 document.getElementById(i).style.backgroundColor = "#276678";    //White
             }
-
             document.getElementById(n).style.backgroundColor = "rgb(119, 119, 119)";               // Gray
 
             while (switching) {
@@ -144,7 +143,7 @@
             rows = table.rows;
             for (i = 1; i < (rows.length - 1); i++) {
                 for (j = 0; j < 8; j++) {
-                    td = rows[i].getElementsByTagName("TD")[0];
+                    td = rows[i].getElementsByTagName("TD")[j];
                     txtValue = td.innerText;
                     if (txtValue.toUpperCase().indexOf(filter) > -1) {
                         rows[i].style.display = "";
