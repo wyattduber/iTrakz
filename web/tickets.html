@@ -135,28 +135,23 @@
             }
         }
 
-        // TODO
-        /*function filterSearchTable() {
-            // Declare variables
+        function filterSearchTable() {
             var input, filter, table, rows, td, i, txtValue;
             input = document.getElementById("search");
             filter = input.value.toUpperCase();
             table = document.getElementById("ticket-table");
-
-            // Loop through all table rows, and hide those who don't match the search query
+            
             rows = table.rows;
             for (i = 1; i < (rows.length - 1); i++) {
                 td = rows[i].getElementsByTagName("TD")[0];
-                if (td) {
-                    txtValue = td.textContent || td.innerText;
-                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                        rows[i].style.display = "";
-                    } else {
-                        rows[i].style.display = "none";
-                    }
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    rows[i].style.display = "";
+                } else {
+                    rows[i].style.display = "none";
                 }
             }
-        }*/
+        }
     </script>
 
     <!-- Create Ticket popup -->
