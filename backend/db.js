@@ -163,19 +163,6 @@ class database {
     }
 
     /**
-     * Updates the author of the ticket if it needs changing
-     * @param author
-     * @param id
-     * @param user
-     */
-    updateAuthor(author, id, user) {
-        let stmt = db.prepare("UPDATE tickets SET author=? WHERE id=?");
-        stmt.run(author, id);
-
-        this.createHistory("Author Change: " + author, user, id);
-    }
-
-    /**
      * Updates the category of the ticket
      * @param newCategory
      * @param id
