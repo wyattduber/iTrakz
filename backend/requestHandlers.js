@@ -153,9 +153,9 @@ var handlers = {
         let js = "<script>\n";
 
         let categoryIndices = {};
-        categoryIndices["Bug"] = 0;
-        categoryIndices["Hack"] = 1;
-        categoryIndices["Other"] = 2;
+        categoryIndices["bug"] = 0;
+        categoryIndices["hack"] = 1;
+        categoryIndices["other"] = 2;
         categoryIndices[null] = 2; // When the category is blank, set to other
 
         let statusIndices = {};
@@ -180,6 +180,7 @@ var handlers = {
         js += "document.getElementById('description').innerText = '"+sanitize(ticket.content)+"';\n";
         js += "document.getElementById('category').options["+categoryIndices[ticket.category]+"].selected = true;\n";
         js += "document.getElementById('status').options["+statusIndices[ticket.status]+"].selected = true;\n";
+        js += "document.ticketform.action = '/update_ticket.html?id="+ qs.parse(request.url.split("?")[1]).id +"';\n";
 
         js += "</script>\n";
         return js;
@@ -189,13 +190,13 @@ var handlers = {
         request.on("data", function(data) {
             let formData = qs.parse(data.toString());
             let id = qs.parse(request.url.split("?")[1]).id;
+            let ticket = db.getTicketById(id);
 
-            if (formData.subject !== db.getTicketBit(id, "subject")) db.updateTitle(id, formData.subject);
-            if (formData.content !== db.getTicketBit(id, "content")) db.updateContent(id, formData.content);
-            if (formData.category !== db.getTicketBit(id, "category")) db.updateCategory(id, formData.category);
-            if (formData.status !== db.getTicketBit(id, "status")) db.updateStatus(id, formData.status);
-            if (formData.requester !== db.getTicketBit(id, "author")) db.updateAuthor(id, formData.requester);
-            if (formData.responder !== db.getTicketBit(id, "responder")) db.updateResponder(id, formData.responder);
+            if (formData.subject !== ticket.title) db.updateTitle(formData.subject, id, formData.editor);
+            if (formData.content !== ticket.content) db.updateContent(formData.description, id, formData.editor);
+            if (formData.category !== ticket.category) db.updateCategory(formData.category, id, formData.editor);
+            if (formData.status !== ticket.status) db.updateStatus(formData.status, id, formData.editor);
+            if (formData.responder !== ticket.responder) db.updateResponder(formData.responder, id, formData.editor);
 
         });
 
