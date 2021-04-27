@@ -161,9 +161,9 @@ var handlers = {
         categoryIndices[null] = 2; // When the category is blank, set to other
 
         let statusIndices = {};
-        statusIndices["New"] = 0;
-        statusIndices["In Progress"] = 1;
-        statusIndices["Resolved"] = 2;
+        statusIndices["new"] = 0;
+        statusIndices["prog"] = 1;
+        statusIndices["resolved"] = 2;
 
         let ticket = db.getTicketById(qs.parse(request.url.split("?")[1]).id);
 
