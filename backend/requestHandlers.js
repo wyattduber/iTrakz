@@ -124,7 +124,7 @@ var handlers = {
             ticketsList += "row.insertCell(4).innerHTML = \"" + sanitize(tickets[i].status) + "\";\n";
             ticketsList += "row.insertCell(5).innerHTML = \"" + sanitize(responder) + "\";\n";
             ticketsList += "row.insertCell(6).innerHTML = \"" + sanitize(category) + "\";\n";
-            ticketsList += "row.insertCell(7).innerHTML = \"<button class='btn btn-primary' onclick=\\\"window.location.href='/ticket.html?id=" + tickets[i].id + "'\\\">Open</button>\";\n";
+            ticketsList += "row.insertCell(7).innerHTML = \"<button class='btn btn-primary ticket-btn' onclick=\\\"window.location.href='/ticket.html?id=" + tickets[i].id + "'\\\">Open</button>\";\n";
         }
 
         ticketsList += "</script>\n";
@@ -140,6 +140,8 @@ var handlers = {
         return "<script>console.log(\"Oh yeah, it's all coming together\");</script>";
     },
 
+    // JS to call db function on login form submission
+    // Does this work? Do we want to try it?
     /*submit_login: function(request) {
         request.on("data", function(data) {
             let formData = qs.parse(data.toString());

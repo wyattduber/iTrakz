@@ -231,11 +231,16 @@ hr {
     word-wrap: break-word;
 }
 
+.ticket-btn {
+    background-color: #276678;
+    color:#F6F5F5;
+}
+
 
 /* ----------------------------------- */
 
 /* For smaller laptops */
-@media (max-width: 1400px) {
+@media (max-width: 1540px) {
     .btn {
         font-size: .9rem;
     }
