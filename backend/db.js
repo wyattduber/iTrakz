@@ -172,7 +172,7 @@ class database {
         let stmt = db.prepare("UPDATE tickets SET author=? WHERE id=?");
         stmt.run(author, id);
 
-        this.createHistory("Author Change", user, id);
+        this.createHistory("Author Change: " + author, user, id);
     }
 
     /**
@@ -186,7 +186,7 @@ class database {
         let stmt = db.prepare("UPDATE tickets SET category=? WHERE id=?");
         stmt.run(newCategory, id);
 
-        this.createHistory("Category Update" + newCategory, user, id);
+        this.createHistory("Category Update: " + newCategory, user, id);
     }
 
     /**
@@ -200,7 +200,7 @@ class database {
         let stmt = db.prepare("UPDATE tickets SET status=? WHERE id=?");
         stmt.run(newStatus, id);
 
-        this.createHistory("Label Change" + newStatus, user, id);
+        this.createHistory("Label Change: " + newStatus, user, id);
     }
 
     /**
@@ -228,7 +228,7 @@ class database {
         let stmt = db.prepare("UPDATE tickets SET title=? WHERE id=?");
         stmt.run(newTitle, id);
 
-        this.createHistory("Title Change" + newTitle, user, id);
+        this.createHistory("Title Change: " + newTitle, user, id);
     }
 
     /**
