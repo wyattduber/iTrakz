@@ -25,3 +25,7 @@ After setting it up, `./backend/node-webserver.js` will initialize a local datab
 If you want to omit the port 8080 when connecting with a web browser, you can change the port to HTTP default port 80 on line 7 of `./backend/node-webserver.js`.
 
 If you haven't deleted the sample `database.db` file, you'll be presented with a dashboard with some sample tickets upon connecting with a web browser. You can go ahead and delete them. Navigation throughout the site is intuitive.
+
+# Demo
+
+This project was for CS 319 at Iowa State University during the Spring 2021 semester. I will be maintaining a demo deployment of the site at https://itrakz.zachkline.us/ if you want to see. This is a live database and any changes to it will be persistent. There is no permission system, so anybody on the internet can manipulate the database.
