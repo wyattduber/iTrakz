@@ -361,8 +361,10 @@ AAAAAAAAAAAAAAAAAAAAAA==" rel="icon" type="image/x-icon" />
             <textarea name="editor" id="editor" class="form-control" required></textarea>
             <br>
             <button style="display:inline" type="submit" class="btn btn-primary ticket-btn">Save edits</button>
-            <button style="display:inline" onclick="window.location.href='/tickets.html';" class="btn btn-secondary">Don't save</button>
         </form>
+        <br>
+        <button style="display:inline" onclick="window.location.href='/tickets.html';" class="btn btn-secondary">Don't save</button>
+        <button style="display:inline" onclick="window.location.href = '/delete_ticket.html?id=' + window.location.href[window.location.href.length - 1] + '&user=' + document.getElementById('editor').value;" class="btn btn-danger">Delete ticket</button>
     </div>
 
     <!-- Create Login Popup -->
