@@ -239,7 +239,7 @@ hr {
 .spinner-border {
     position: fixed;
     top: 30%;
-    left: 49%;
+    left: 50%;
     width: 2.2rem;
     height: 2.2rem;
     color:#276678;
@@ -248,7 +248,15 @@ hr {
 .load-center {
     position: fixed;
     top: 35%;
-    left: 45%;
+    left: 46.5%;
+    font-size: 1.4rem;
+    color:#276678;
+}
+
+.load-center2 {
+    position: fixed;
+    top: 35%;
+    left: 47%;
     font-size: 1.4rem;
     color:#276678;
 }
