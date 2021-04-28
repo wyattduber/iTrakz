@@ -45,6 +45,9 @@ var handlers = {
                 case "/update_ticket.html":
                     jsFromHandler = handlers.update_ticket(request);
                     break;
+                case "/delete_ticket.html":
+                    jsFromHandler = handlers.delete_ticket(request);
+                    break;
             }
 
             response.writeHead(200);
@@ -211,6 +214,13 @@ var handlers = {
             if (formData.responder !== ticket.responder) db.updateResponder(formData.responder, id, formData.editor);
 
         });
+
+        return "<script>console.log(\"Oh yeah, it's all coming together\");</script>";
+    },
+
+    delete_ticket: function(request) {
+        let urlData = qs.parse(request.url.split("?")[1]);
+        db.deleteTicket(urlData.id, urlData.user);
 
         return "<script>console.log(\"Oh yeah, it's all coming together\");</script>";
     },
