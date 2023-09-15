@@ -28,4 +28,4 @@ If you haven't deleted the sample `database.db` file, you'll be presented with a
 
 # Demo
 
-This project was for CS 319 at Iowa State University during the Spring 2021 semester. I will be maintaining a demo deployment of the site at https://itrakz.zachkline.us/ if you want to see. This is a live database and any changes to it will be persistent. There is no permission system, so anybody on the internet can manipulate the database.
+This project was for CS 319 at Iowa State University during the Spring 2021 semester. I will be maintaining a demo deployment of the site at https://itrakz.wyattduber.com/ if you want to see. This is a live database and any changes to it will be persistent. There is no permission system, so anybody on the internet can manipulate the database. As you can see, a few so-called “hackers” found their way into the database, but it's really must a good example of how the tickets are made and are persistent ;)
