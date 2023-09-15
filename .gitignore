@@ -7,7 +7,7 @@ httpRequests/
 node_modules/
 database.db
 backend/database.db
-backend/node_modules
+backend/node_modules/
 .DS_Store
 =======
 # Created by https://www.toptal.com/developers/gitignore/api/webstorm,node
