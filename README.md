@@ -24,7 +24,7 @@ node node-webserver.js
 
 # Usage
 
-After setting it up, `./backend/node-webserver.js` will initialize a local database file (a sample exists in the repository, you can delete this from ./backend/database.db) and start up a web server. By default, it opens the webserver on port 8080, so you have to navigate to `https://localhost:8080/` in a web browser.
+After setting it up, `./backend/node-webserver.js` will initialize a local database file (a sample exists in the repository, you can delete this from ./backend/database.db) and start up a web server. By default, it opens the webserver on port 8080, so you have to navigate to `https://localhost:8090/` in a web browser.
 
 If you want to omit the port 8080 when connecting with a web browser, you can change the port to HTTP default port 80 on line 7 of `./backend/node-webserver.js`.
 
