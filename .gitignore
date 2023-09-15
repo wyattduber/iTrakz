@@ -5,3 +5,7 @@
 /httpRequests/
 #Others
 /node_modules/
+/database.db
+/backend/database.db
+/backend/node/modules
+/.DS_Store

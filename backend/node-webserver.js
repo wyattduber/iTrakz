@@ -4,7 +4,7 @@ const handlers = require('./requestHandlers.js'); // Imports functions from requ
 
 /* Start server */
 var server = http.createServer(handlers.default); // Sends incoming connections to requestHandlers.js
-const port = 8080; // default port is 80, but setting to secondary standard 8080. Prod systems should be set to 80
+const port = 8090; // default port is 80, but setting to secondary standard 8080. Prod systems should be set to 80
 server.listen(port); // Starts server
 
 console.log('Started server running on http://localhost:' + port);
