@@ -4,19 +4,23 @@ Self-contained bug tracking web application, design to be used in small projects
 
 # Setup and Run
 
-This is a NodeJS project, so you have to have `nodejs` and `npm` installed on your system. We only have 1 non-native NodeJS library you must install, which is `better-sqlite3`.
+This is a NodeJS project, so you have to have `nodejs` and `npm` installed on your system. If you need to install, follow [this guide](https://nodejs.org/en/download/package-manager) before installing our site.
 
-<pre>
-# Clone the repository
+## Clone the repository
+```bash
 git clone https://github.com/DoubleYouCash/iTrakz.git
+```
 
-# Install dependencies
-cd ./iTrakz/backend/
-npm install
+## Install dependencies
+```bash
+  cd /backend
+  npm install
+```
 
-# Run
+## Run
+```bash
 node node-webserver.js
-</pre>
+```
 
 # Usage
 
