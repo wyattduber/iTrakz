@@ -12,7 +12,7 @@ git clone https://github.com/DoubleYouCash/iTrakz.git
 
 # Install dependencies
 cd ./iTrakz/backend/
-npm install better-sqlite3
+npm install
 
 # Run
 node node-webserver.js
