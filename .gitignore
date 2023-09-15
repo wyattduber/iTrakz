@@ -1,15 +1,15 @@
 <<<<<<< HEAD
 # Default ignored files
-/shelf/
-/workspace.xml
+shelf/
+workspace.xml
 # Editor-based HTTP Client requests
-/httpRequests/
+httpRequests/
 #Others
-/node_modules/
-/database.db
-/backend/database.db
-/backend/node/modules
-/.DS_Store
+node_modules/
+database.db
+backend/database.db
+backend/node/modules
+.DS_Store
 =======
 # Created by https://www.toptal.com/developers/gitignore/api/webstorm,node
 # Edit at https://www.toptal.com/developers/gitignore?templates=webstorm,node
