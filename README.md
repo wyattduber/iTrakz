@@ -13,13 +13,13 @@ git clone https://github.com/DoubleYouCash/iTrakz.git
 
 ## Install dependencies
 ```bash
-  cd backend/
+  cd ./backend/
   npm install
 ```
 
 ## Run
 ```bash
-node node-webserver.js
+node ./backend/node-webserver.js
 ```
 
 # Usage
