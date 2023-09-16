@@ -13,7 +13,7 @@ git clone https://github.com/DoubleYouCash/iTrakz.git
 
 ## Install dependencies
 ```bash
-  cd /backend
+  cd backend/
   npm install
 ```
 
