@@ -8,7 +8,7 @@ This is a NodeJS project, so you have to have `nodejs` and `npm` installed on yo
 
 ## Clone the repository
 ```bash
-git clone https://github.com/DoubleYouCash/iTrakz.git
+git clone https://github.com/wyattduber/iTrakz.git
 ```
 
 ## Install dependencies
